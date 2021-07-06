@@ -1,0 +1,74 @@
+<div class="container"> 
+    <form [formGroup]="customerRegistrationControl" class="form-horizontal formStyle">    
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Name</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="name" formControlName="nameControl" class="form-control"/>                
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>UserName</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="userName" formControlName="userNameControl" class="form-control"/>                
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Password</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="password" id="password" formControlName="passwordControl" class="form-control"/>                
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Guardian Type</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="guardianType" formControlName="guardianTypeControl" class="form-control"/>                 
+
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Guardian Name</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="guardianName" formControlName="guardianNameControl" class="form-control"/>
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Address</label>                 
+            </div>
+            <div class="col-sm-4">
+                <textarea rows="3" cols="30" id="address" formControlName="addressControl" class="form-control">
+                    </textarea>
+            </div>            
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Citizenship</label>                 
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="citizenship" formControlName="citizenshipControl" class="form-control"/>
+            </div>            
+        </div>     
+        <div class="row col-xs-12">
+            <div class="col-sm-2">
+                <label>Country</label>                 
+            </div>
+            <div class="col-sm-3">
+                <select id="country" formControlName="countryControl">
+                    <!-- <Option *ngFor="let countryModel of countriesModel; let i = index">{{countriesModel[i].name}}</Option> -->
+                </select>
+            </div>            
+        </div>    
+    </form>        
+</div>
+    
+

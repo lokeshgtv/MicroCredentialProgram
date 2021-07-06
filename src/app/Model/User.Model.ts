@@ -1,5 +1,3 @@
-import { ExecSyncOptionsWithBufferEncoding } from "child_process"
-
 import { UserConstants } from "../Constants/User.Contants";
 import { Gender } from "../Constants/User.Contants";
 import { BankAccountDetails } from "./BankAccountDetails.Model";
