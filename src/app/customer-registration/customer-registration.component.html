@@ -13,7 +13,7 @@
                 <label>UserName</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="userName" formControlName="userNameControl" class="form-control"/>                
+                <input type="text" id="userName" formControlName="userNmaeControl" class="form-control"/>                
             </div>            
         </div>     
         <div class="row col-xs-12">
@@ -57,17 +57,38 @@
             <div class="col-sm-3">
                 <input type="text" id="citizenship" formControlName="citizenshipControl" class="form-control"/>
             </div>            
-        </div>     
-        <div class="row col-xs-12">
-            <div class="col-sm-2">
-                <label>Country</label>                 
-            </div>
-            <div class="col-sm-3">
-                <select id="country" formControlName="countryControl">
-                    <!-- <Option *ngFor="let countryModel of countriesModel; let i = index">{{countriesModel[i].name}}</Option> -->
-                </select>
-            </div>            
-        </div>    
+        </div>   
+        
+          <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Country</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <select #selectedCountry id="country" formControlName="countryControl" class="form-control" (change)="onCountryChange(selectedCountry.value)">
+                        <Option *ngFor="let countryModel of countriesModel; let i = index" value="{{countryModel.id}}">{{countryModel.name}}</Option>
+                    </select>
+                </div>            
+            </div>   
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>State</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <select #selectedState id="state" formControlName="stateControl" class="form-control">
+                        <Option *ngFor="let stateModel of statesForSelectedCountry; let i = index" value="{{stateModel.id}}">{{stateModel.name}}</Option>
+                    </select>
+                </div>            
+            </div> 
+            
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Email Address</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="email" id="email" formControlName="EmailAddressControl" class="form-control"/>
+                </div>            
+            </div>   
     </form>        
 </div>
     
