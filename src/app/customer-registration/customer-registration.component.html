@@ -5,7 +5,7 @@
                 <label>Name</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="name" formControlName="nameControl" class="form-control"/>                
+                <input type="text" id="name" formControlName="nameControl1" class="form-control"/>                
             </div>            
         </div>     
         <div class="row col-xs-12">
@@ -89,6 +89,140 @@
                     <input type="email" id="email" formControlName="EmailAddressControl" class="form-control"/>
                 </div>            
             </div>   
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Gender</label>                 
+                </div>
+                <div class="col-sm-1" *ngFor="let gender of GenderModel; let i = index">
+                    <input type="radio" id="gender{{i}}" formControlName="genderControl" value="{{gender}}">{{gender}}
+                </div>            
+            </div>   
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Marital Status</label>                 
+                </div>
+                <div class="col-sm-1" *ngFor="let maritalStatus of MaritalStatusModel; let i = index">
+                    <input type="radio" id="maritalStatus{{i}}" formControlName="maritalStatusControl" value="{{maritalStatus}}">{{maritalStatus}}
+                </div>            
+            </div>  
+            
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Contact Number</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="contactNumber" formControlName="contactNoControl" class="form-control" maxlength="10"/>
+                </div>            
+            </div>   
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Date Of Birth</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input #selectedDOB type="date" id="dob" formControlName="dobControl" class="form-control" 
+                    (change)="onDOBChanged(selectedDOB.value)" min="maxDate"/>
+                </div>                  
+            </div>               
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Registration Date</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="regDate" formControlName="registrationDateControl" class="form-control">
+                </div>            
+            </div>                    
+            
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Account Type</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <select #selectedAccount id="accountType" formControlName="accountTypeControl" class="form-control" 
+                        (change)="onAccountTypeChange(selectedAccount.value)">
+                        <Option  *ngFor="let accountType of AccountTypeModel; let i = index" value="{{accountType}}">{{accountType}}</Option>
+                    </select>
+                </div>            
+            </div>  
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Branch Name</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="branchName" formControlName="branchNameControl" class="form-control"/>
+                </div>            
+            </div>          
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Citizen Status</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="citizenStatus" formControlName="citizenStatusControl" class="form-control"/>
+                </div>            
+            </div>  
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Initial Deposit Amount</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="initialDepositAmount" formControlName="initialDepositAmountControl" class="form-control"/>
+                </div>            
+            </div>         
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Identification Proof Type</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <select id="idProofType" formControlName="identificationProofTypeControl" class="form-control">
+                        <Option  *ngFor="let idType of IdentificationProofTypeModel; let i = index" value="{{idType}}">{{idType}}</Option>
+                    </select>
+                </div>              
+            </div>       
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Identification Document No</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="identificationDocumentNo" formControlName="identificationDocumentNoControl" class="form-control"/>
+                </div>            
+            </div>       
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Ref Acc Holder Name</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="refAccName" formControlName="refAccHolderNameControl" class="form-control"/>
+                </div>            
+            </div>    
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Ref Acc Holder Number</label>                 
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="refAccNameNo" formControlName="refAccHolderNumberControl" class="form-control"/>
+                </div>            
+            </div>    
+
+            <div class="row col-xs-12">
+                <div class="col-sm-2">
+                    <label>Ref Acc Holder Address</label>                 
+                </div>
+                <div class="col-sm-4">
+                    <textarea rows="3" cols="30" id="refaddress" formControlName="refAccHolderAddressControl" class="form-control">
+                        </textarea>
+                </div>            
+            </div>
+
     </form>        
 </div>
     

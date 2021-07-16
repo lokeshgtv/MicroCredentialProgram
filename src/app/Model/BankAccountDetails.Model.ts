@@ -17,4 +17,5 @@ export class BankAccountDetails
     referenceAccountHolderNumber: string; 
     referenceAccountHolderAddress: string; 
     UserDetail : User;
+    accountActivationDate: Date;
 }

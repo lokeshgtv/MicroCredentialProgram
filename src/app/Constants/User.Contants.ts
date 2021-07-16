@@ -1,14 +1,13 @@
 
-export enum Gender{
-    Male = "Male",
-    Female = "Female",
-    Other = "Other"
-}
-
 export class UserConstants
 {
+    constructor()
+    {
+        
+    }
 
     MaritalStatus: string[] = ["Married", "Single" , "Divorced" , "Other"];
+    Gender: string[] = ["Male", "Female", "Other"]
     AccountType: string[] = ["Savings", "Salary"];
     IdentificationProofType: string[] = ["Aadhar", "Driving License", "Pan Card"];
     LoanTypes: string[] = [ "Education", "Personal", "Housing" ]

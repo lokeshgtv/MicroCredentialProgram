@@ -1,9 +1,9 @@
 import { UserConstants } from "../Constants/User.Contants";
-import { Gender } from "../Constants/User.Contants";
 import { BankAccountDetails } from "./BankAccountDetails.Model";
 
 export class User
 {
+    id: string;
     name: string;
     userNmae: string;
     password: string;
@@ -14,7 +14,7 @@ export class User
     state: string;
     country: string;
     EmailAddress: string;
-    gender: Gender
+    gender: string;
     maritalStatus : string;
     contactNo : Number;
     dob: Date;

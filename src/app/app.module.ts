@@ -7,6 +7,7 @@ import { CustomerRegistrationComponent } from './customer-registration/customer-
 import { HttpClient } from '@angular/common/http'; 
 import { DropDownDataService } from './Service/DropdownDataService.Model';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [   HttpClient, DropDownDataService ],
+  providers: [   HttpClient, DropDownDataService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
