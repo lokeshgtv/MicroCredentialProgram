@@ -10,13 +10,14 @@ export class UserConstants
     Gender: string[] = ["Male", "Female", "Other"]
     AccountType: string[] = ["Savings", "Salary"];
     IdentificationProofType: string[] = ["Aadhar", "Driving License", "Pan Card"];
-    LoanTypes: string[] = [ "Education", "Personal", "Housing" ]
+    LoanTypes: string[] = [ "Education", "Personal", "Housing"]
     citizenStatus: string[] = ["Minor", "Normal", "Senior"]
     EducationLoanROI = 5;
     PersonalLoanROI = 13;
     HousingLoanROI = 7;
     MinimumSavingsAccountBalance = 5000;
-    MinimumSalaryAccountBalance = 0;
+    MinimumSalaryAccountBalance = 0;    
+    LoanDuration = ["5", "10", "15", "20"];
     States : string[] = ["Andhra Pradesh", "Andaman and Nicobar Island", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadar and Nagar Haveli",
     "Daman and Diu", "Delhi", "Lakshadweep", "Puducherry", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand",
     "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",

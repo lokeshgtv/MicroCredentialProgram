@@ -1,10 +1,10 @@
-import { Component, OnInit, Predicate } from '@angular/core';
-import { FormGroup, FormControl, Validator, Validators, NG_VALIDATORS, ValidatorFn, Form } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, Predicate, ViewChild } from '@angular/core';
+import { FormBuilder, NgForm, FormGroup, FormControl, Validator, Validators, NG_VALIDATORS, ValidatorFn, Form } from '@angular/forms';
 import { User } from '../Model/User.Model';
 import {Country, State, City} from 'country-state-city';
 import { DropDownDataService  } from '../Service/DropdownDataService.Model'
 import { Observable } from 'rxjs';
-import { UserConstants } from '../Constants/User.Contants';
+import { CountryModel, UserConstants } from '../Constants/User.Contants';
 import { DatePipe } from '@angular/common';
 import { BankAccountDetails } from '../Model/BankAccountDetails.Model';
 import { formatDate } from '@angular/common'
@@ -13,14 +13,15 @@ import * as moment from 'moment';
 
 import { DOBAgeValidatorForBankAccountOpening } from '../Validators/CustomValidators'
 
+
 @Component({
   selector: 'app-customer-registration',
   templateUrl: './customer-registration.component.html',
   styleUrls: ['./customer-registration.component.css']
 })
 export class CustomerRegistrationComponent implements OnInit {
-   
-  countriesModel : any[];
+  
+  countriesModel : CountryModel[];
   stateModel : any[];
   statesForSelectedCountry: any[];  
   GenderModel:string[];
@@ -53,79 +54,110 @@ export class CustomerRegistrationComponent implements OnInit {
   refAccHolderNameControl: FormControl;
   refAccHolderNumberControl: FormControl;
   refAccHolderAddressControl: FormControl;
+  
   maxDate: string;
 
   tempDate: Date;
 
-    constructor(private service: DropDownDataService, public datePipe: DatePipe)
+    constructor(private service: DropDownDataService, public datePipe: DatePipe )
     {      
-      this.userModel.bankAccountDetail = new BankAccountDetails();
+      
+      //Set the Item Source for dropdown controls
       this.GenderModel = new UserConstants().Gender;
       this.MaritalStatusModel = new UserConstants().MaritalStatus;
       this.AccountTypeModel = new UserConstants().AccountType;
       this.IdentificationProofTypeModel = new UserConstants().IdentificationProofType;
+
+      //Initialize form controls along with its validators
       this.nameControl = new FormControl(this.userModel.name, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]);
-      this.idProofTypeControl = new FormControl(this.userModel.bankAccountDetail.identificationProofType, [Validators.required]); 
-      let regDateData:string =  moment(new Date()).format('YYYY-MM-DD');
+      this.userNmaeControl =  new FormControl(this.userModel.userNmae, [Validators.required]);
+      this.passwordControl = new FormControl(this.userModel.password, [Validators.required]);
+      this.guardianTypeControl = new FormControl(this.userModel.guardianType, [Validators.required]);
+      this.guardianNameControl = new FormControl(this.userModel.guardianName, [Validators.required]);
+      this.addressControl = new FormControl(this.userModel.address, [Validators.required]);
+      this.citizenshipControl = new FormControl(this.userModel.citizenship, [Validators.required]);
+      this.stateControl = new FormControl(this.userModel.state, [Validators.required]);
+      this.countryControl = new FormControl('', [Validators.required]);
+      this.EmailAddressControl = new FormControl(this.userModel.EmailAddress, [Validators.required, Validators.email]);
+      this.genderControl = new FormControl(this.userModel.gender, [Validators.required]);
+      this.maritalStatusControl = new FormControl(this.userModel.maritalStatus, [Validators.required]);
+      this.contactNoControl = new FormControl(this.userModel.contactNo, [Validators.required, Validators.pattern("^[0-9]{10}$")]);      
+      this.registrationDate = new FormControl({value:'', disabled: true});
+      this.accountTypeControl = new FormControl(this.userModel.accountType, [Validators.required]);
+      this.branchNameControl = new FormControl('', [Validators.required]);
+      this.idProofTypeControl = new FormControl('', [Validators.required]); 
+      
       this.maxDate = moment(new Date()).format('YYYY-MM-DD');
       this.dobControl = new FormControl(this.userModel.dob, [Validators.required, DOBAgeValidatorForBankAccountOpening()]),
-      this.registrationDate = new FormControl({value:  moment(new Date()).format('YYYY-MM-DD'), disabled: true}); 
-      this.citizenStatusControl = new FormControl({value: this.userModel.bankAccountDetail.citizenStatus, disabled:'true'}),      
-      this.userModel.bankAccountDetail.initialDepositAmount = 5000;
-      this.initialDepositAmountControl = new FormControl({value: this.userModel.bankAccountDetail.initialDepositAmount, disabled:'true'}),
+      this.registrationDate = new FormControl({value:'', disabled: true}); 
+      this.citizenStatusControl = new FormControl({value: '', disabled:'true'}),      
+      
+      this.initialDepositAmountControl = new FormControl({value: '', disabled:'true'}),
+      this.identificationDocumentNoControl = new FormControl('',
+        [Validators.required, this.conditionalValidator((() => this.idProofTypeControl.value === "Pan Card"), Validators.pattern("^[a-zA-Z0-9]{12}$"))]);
+     this.refAccHolderNameControl = new FormControl('', [Validators.required]);
+     this.refAccHolderNumberControl= new FormControl('', [Validators.required]);
+     this.refAccHolderAddressControl= new FormControl('', [Validators.required]);
+
+      
       this.customerRegistrationControl = new FormGroup(
         {        
           nameControl1 :  this.nameControl,
-          userNmaeControl : new FormControl(this.userModel.userNmae, [Validators.required]),
-          passwordControl: new FormControl(this.userModel.password, [Validators.required]),
-          guardianTypeControl: new FormControl(this.userModel.guardianType, [Validators.required]),
-          guardianNameControl: new FormControl(this.userModel.guardianName, [Validators.required]),
-          addressControl: new FormControl(this.userModel.address, [Validators.required]),
-          citizenshipControl: new FormControl(this.userModel.citizenship, [Validators.required]),
-          stateControl: new FormControl(this.userModel.state, [Validators.required]),
-          countryControl: new FormControl(this.userModel.country, [Validators.required]),
-          EmailAddressControl: new FormControl(this.userModel.EmailAddress, [Validators.required, Validators.email]),
-          genderControl: new FormControl(this.userModel.gender, [Validators.required]),
-          maritalStatusControl : new FormControl(this.userModel.maritalStatus, [Validators.required]),
-          contactNoControl : new FormControl(this.userModel.contactNo, [Validators.required, Validators.pattern("^[0-9]{10}$")]),
+          userNmaeControl : this.userNmaeControl,
+          passwordControl: this.passwordControl,
+          guardianTypeControl: this.guardianTypeControl,
+          guardianNameControl: this.guardianNameControl,
+          addressControl: this.addressControl,
+          citizenshipControl: this.citizenshipControl,
+          stateControl: this.stateControl,
+          countryControl: this.countryControl,
+          EmailAddressControl: this.EmailAddressControl,
+          genderControl: this.genderControl,
+          maritalStatusControl : this.maritalStatusControl,
+          contactNoControl : this.contactNoControl,
           dobControl: this.dobControl,
-          registrationDateControl: new FormControl({value: regDateData, disabled: true}),
-          accountTypeControl: new FormControl(this.userModel.accountType, [Validators.required]),
-          branchNameControl: new FormControl(this.userModel.bankAccountDetail.branchName, [Validators.required]),
+          registrationDateControl: this.registrationDate,
+          accountTypeControl: this.accountTypeControl,
+          branchNameControl: this.branchNameControl,
           citizenStatusControl: this.citizenStatusControl,
           initialDepositAmountControl: this.initialDepositAmountControl,
           identificationProofTypeControl: this.idProofTypeControl,
-          identificationDocumentNoControl: new FormControl(this.userModel.bankAccountDetail.identificationDocumentNumer,
-             [Validators.required, this.conditionalValidator((() => this.idProofTypeControl.value === "Pan Card"), Validators.pattern("^[a-zA-Z0-9]{12}$"))]),
-          refAccHolderNameControl: new FormControl(this.userModel.bankAccountDetail.referenceAccountHolderName, [Validators.required]),
-          refAccHolderNumberControl: new FormControl(this.userModel.bankAccountDetail.referenceAccountHolderNumber, [Validators.required]),
-          refAccHolderAddressControl: new FormControl(this.userModel.bankAccountDetail.referenceAccountHolderAddress, [Validators.required]),
+          identificationDocumentNoControl: this.identificationDocumentNoControl,
+          refAccHolderNameControl: this.refAccHolderNameControl,
+          refAccHolderNumberControl: this.refAccHolderNumberControl,
+          refAccHolderAddressControl: this.refAccHolderAddressControl,
         });
-    }   
-    
-    
-   
         
+        this.service.getStates().then(data => 
+          {   
+              this.stateModel = data;
+              this.GetDefaultUserDetails();
+              this.SetDefaultUserDetails();  
+          });                 
+        this.service.getCountries()
+        .then(data => 
+        {   
+          this.countriesModel = data;          
+        });    
+             
+    }   
 
-   ngOnInit(): void {
-    this.customerRegistrationControl.get('registrationDateControl').patchValue(new Date());
-  
-      this.service.getCountries().subscribe(data => 
-        {   
-          this.countriesModel = data;                  
-        });        
-                 
-        this.service.getStates().subscribe(data => 
-        {   
-          this.stateModel = data;            
-        });          
+   ngOnInit(): void {   
+    
+        this.UpdateRegistrationDate();       
+       
     }
 
-    onCountryChange(countryId: string)
+    UpdateRegistrationDate()
     {
+      this.customerRegistrationControl.get('registrationDateControl').patchValue( moment(new Date()).format('YYYY-MM-DD'));
+    }
+
+    onCountryChange(countryId: string)    
+    {        
       if(countryId !== null)
-      {
-          this.statesForSelectedCountry = this.stateModel.filter(state => state.country_id === countryId);
+      {   
+          this.statesForSelectedCountry = this.stateModel.filter(state => state.country_id === countryId);          
       }      
     }   
 
@@ -188,5 +220,64 @@ export class CustomerRegistrationComponent implements OnInit {
             }            
             return validator(formControl);            
         })
-    }
-}
+    }   
+
+    SetFormValues(user: User)
+    {         
+        let custRegForm = {
+          nameControl1 : user.name,
+          userNmae: user.userNmae,
+          password: user.password,
+          guardianType: user.guardianType,
+          guardianName: user.guardianName,
+          address: user.address,
+          citizenship: user.citizenship,
+          country: user.country,
+          state: user.state,
+          email: user.EmailAddress,
+          gender: user.gender,
+          maritalStatus: user.maritalStatus,
+          contactNumber: user.contactNo,
+          dob: user.dob,
+          regDate: user.registrationDate,
+          accType: user.bankAccountDetail.accountType,
+          branchName: user.bankAccountDetail.branchName,
+          citizenStatus: user.bankAccountDetail.citizenStatus,
+          initialDepositAmount: user.bankAccountDetail.initialDepositAmount,
+          identificationProofType: user.bankAccountDetail.identificationProofType,
+          identificationDocumentNoControl: user.bankAccountDetail.identificationDocumentNumer,
+          referenceAccountHolderName: user.bankAccountDetail.referenceAccountHolderName,
+          referenceAccountHolderNumber: user.bankAccountDetail.referenceAccountHolderNumber,
+          referenceAccountHolderAddress: user.bankAccountDetail.referenceAccountHolderAddress         
+        };
+        this.customerRegistrationControl.setValue(custRegForm);
+      }
+
+      GetDefaultUserDetails() : User
+      {
+        this.userModel = new User();
+        this.userModel.bankAccountDetail = new BankAccountDetails();
+        this.userModel.country = 'India';
+        this.userModel.state = 'Tamil Nadu';
+        this.userModel.accountType = 'Savings';
+        this.userModel.gender = 'Male';
+        this.userModel.maritalStatus = 'Single';
+        this.userModel.registrationDate = moment(new Date()).format('YYYY-MM-DD');
+        this.userModel.bankAccountDetail.initialDepositAmount = 5000;
+        return this.userModel;
+      }
+
+      SetDefaultUserDetails()
+      {       
+        let defaultCountry : any = this.countriesModel.find(country => country.name === this.userModel.country );       
+        this.customerRegistrationControl.get('countryControl').patchValue(defaultCountry.id);        
+        this.customerRegistrationControl.get('accountTypeControl').patchValue(this.userModel.accountType);
+        this.customerRegistrationControl.get('genderControl').patchValue(this.userModel.gender);
+        this.customerRegistrationControl.get('maritalStatusControl').patchValue(this.userModel.maritalStatus);
+        this.customerRegistrationControl.get('registrationDateControl').patchValue(this.userModel.registrationDate);
+        this.customerRegistrationControl.get('initialDepositAmountControl').patchValue(this.userModel.bankAccountDetail.initialDepositAmount);           
+        this.onCountryChange(defaultCountry.id);
+        let defaultState : any = this.stateModel.find(state => state.name === this.userModel.state );         
+        this.customerRegistrationControl.get('stateControl').patchValue(defaultState.id);   
+      }
+   }

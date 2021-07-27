@@ -7,7 +7,7 @@ export class BankAccountDetails
     Name: string;
     accountNumber: string;
     accountType: string;
-    bankName: string
+    bankName: string;
     branchName: string;
     citizenStatus: boolean;
     initialDepositAmount: number;

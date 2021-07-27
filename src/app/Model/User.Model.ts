@@ -18,7 +18,7 @@ export class User
     maritalStatus : string;
     contactNo : Number;
     dob: Date;
-    registrationDate: Date;
+    registrationDate: string;
     accountType: string;
     bankAccountDetail : BankAccountDetails;   
 }

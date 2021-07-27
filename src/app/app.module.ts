@@ -8,11 +8,13 @@ import { HttpClient } from '@angular/common/http';
 import { DropDownDataService } from './Service/DropdownDataService.Model';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { LoanComponent } from './loan/loan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerRegistrationComponent    
+    CustomerRegistrationComponent,
+    LoanComponent    
   ],
   imports: [
     BrowserModule,
