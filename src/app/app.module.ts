@@ -9,12 +9,14 @@ import { DropDownDataService } from './Service/DropdownDataService.Model';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { LoanComponent } from './loan/loan.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerRegistrationComponent,
-    LoanComponent    
+    LoanComponent,
+    LoginComponent    
   ],
   imports: [
     BrowserModule,

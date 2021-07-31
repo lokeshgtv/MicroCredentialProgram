@@ -1,0 +1,49 @@
+<div class="container background "> 
+    <div class="row">
+        <h1>Bank Management System</h1>
+        <div class="col-sm-12 justify-content-center loader">
+            <div class="card">
+                <div class="card-header d-flex justify-content-center">
+                    <h3>LOG IN</h3>
+                </div>
+                <div class="card-body d-flex justify-content-center">
+                <form [formGroup]="loginFormsControl" class="form-horizontal formStyle">   
+                    
+                    <div class="row col-sm-12">          
+                        <div class="col-sm-4">
+                            <label class="col-form-label">UserName</label>                   
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="userName" formControlName="userNmaeControl" class="form-control"/>                          
+                        </div>
+                        <div class="row col-sm-12">
+                            <span class="text-danger" *ngIf="userNmaeControl.touched && userNmaeControl.invalid">Please Enter User Name!</span>                
+                        </div>         
+                    </div>     
+                    <div class="row col-sm-12">     
+                        <div class="col-sm-4">
+                            <label class="col-form-label">Password</label>                   
+                        </div>       
+                        <div class="col-sm-8">
+                            <input type="password" id="password" formControlName="passwordControl" class="form-control"/>               
+                        </div>
+                        
+                        <div class="row col-sm-12">
+                            <span class="text-danger" *ngIf="passwordControl.touched && passwordControl.invalid">Please Enter Password!</span>                
+                        </div> 
+                    </div>          
+                    <div class="row col-sm-12">
+                        <div class="col-sm-7">
+                            <a href="">New User Signup!</a>                 
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-primary" (click)="onLoginFormSubmitted" [disabled]="loginFormsControl.invalid">Log in</button>
+                        </div>
+                    </div>    
+                </form>   
+            </div>
+        </div>
+    </div>
+</div>
+    
+

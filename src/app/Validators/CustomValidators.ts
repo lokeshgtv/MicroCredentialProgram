@@ -31,19 +31,14 @@ export function MinimimDateValidator(mimimumAllowedDate: Date) : ValidatorFn
     return((control : AbstractControl) : {[s: string] : boolean} => 
     {  
         const dateEntered = Date.parse(control.value);
-        const dateDiff = Math.abs(dateEntered - Date.parse(mimimumAllowedDate.toDateString()));
-        console.log("Min Allowed Date", Date.parse(mimimumAllowedDate.toDateString()));
-        console.log("Date Entered", dateEntered);
-        console.log("Date Diff", dateDiff);
-        if(dateDiff < 0)      
-        {
-            console.log("Invalid Date");
+        const dateAllowed = Date.parse(mimimumAllowedDate.toDateString());       
+        if(dateEntered < dateAllowed)      
+        {            
             return {'Invalid Date': true};
         }
         if(dateEntered === null)
             return null
-
-        console.log("Valid Date");
+        
         return null;
     });
 }

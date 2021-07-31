@@ -1,5 +1,5 @@
 <div class="container"> 
-    <form [formGroup]="customerRegistrationControl" onsubmit="" class="form-horizontal formStyle">    
+    <form [formGroup]="customerRegistrationControl" class="form-horizontal formStyle">    
         <div class="row col-xs-12">
             <div class="col-sm-2">
                 <label>Name</label>                   
@@ -151,6 +151,9 @@
                 <div class="col-sm-3">
                     <input type="text" id="contactNumber" formControlName="contactNoControl" class="form-control" maxlength="10"/>
                 </div>            
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="contactNoControl.touched && contactNoControl.invalid">Please Enter Contact Number (10 digits)!</span>                
+                </div>         
             </div>   
 
             <div class="row col-xs-12">
@@ -160,7 +163,13 @@
                 <div class="col-sm-3">
                     <input #selectedDOB type="date" id="dob" formControlName="dobControl" class="form-control" 
                     (change)="onDOBChanged(selectedDOB.value)" min="maxDate"/>
-                </div>                  
+                </div>     
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="dobControl.touched && dobControl.hasError('required')">Please Enter Date Of Birth!</span>                
+                </div>       
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="dobControl.touched && dobControl.hasError('Invalid DOD')">Please Enter DOB (Where age > 18) !</span>                
+                </div>                     
             </div>               
 
             <div class="row col-xs-12">
@@ -182,6 +191,9 @@
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let accountType of AccountTypeModel; let i = index" [ngValue]="accountType">{{accountType}}</Option>
                     </select>
+                </div>       
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="accountTypeControl.touched && accountTypeControl.invalid">Please Select Account Type!</span>                
                 </div>            
             </div>  
 
@@ -191,7 +203,10 @@
                 </div>
                 <div class="col-sm-3">
                     <input type="text" id="branchName" formControlName="branchNameControl" class="form-control"/>
-                </div>            
+                </div>   
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="branchNameControl.touched && branchNameControl.invalid">Please Enter Branch Name!</span>                
+                </div>                
             </div>          
 
             <div class="row col-xs-12">
@@ -200,7 +215,10 @@
                 </div>
                 <div class="col-sm-3">
                     <input type="text" id="citizenStatus" formControlName="citizenStatusControl" class="form-control"/>
-                </div>            
+                </div>        
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="citizenStatusControl.touched && citizenStatusControl.invalid">Please Enter Citizen Status!</span>                
+                </div>      
             </div>  
 
             <div class="row col-xs-12">
@@ -209,7 +227,10 @@
                 </div>
                 <div class="col-sm-3">
                     <input type="text" id="initialDepositAmount" formControlName="initialDepositAmountControl" class="form-control"/>
-                </div>            
+                </div>    
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="initialDepositAmountControl.touched && initialDepositAmountControl.invalid">Please Enter Initial Deposit Amount!</span>                
+                </div>         
             </div>         
 
             <div class="row col-xs-12">
@@ -221,7 +242,7 @@
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let idType of IdentificationProofTypeModel; let i = index" value="{{idType}}">{{idType}}</Option>
                     </select>
-                </div>              
+                </div>                              
             </div>       
 
             <div class="row col-xs-12">
@@ -231,6 +252,9 @@
                 <div class="col-sm-3">
                     <input type="text" id="identificationDocumentNo" formControlName="identificationDocumentNoControl" class="form-control"/>
                 </div>            
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="identificationDocumentNoControl.touched && identificationDocumentNoControl.invalid">Please Select Identification Document Number!</span>                
+                </div>
             </div>       
 
             <div class="row col-xs-12">
@@ -239,7 +263,10 @@
                 </div>
                 <div class="col-sm-3">
                     <input type="text" id="refAccName" formControlName="refAccHolderNameControl" class="form-control"/>
-                </div>            
+                </div>  
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="refAccHolderNameControl.touched && refAccHolderNameControl.invalid">Please Select Reference Account Holder Name!</span>                
+                </div>        
             </div>    
 
             <div class="row col-xs-12">
@@ -247,8 +274,11 @@
                     <label>Ref Acc Holder Number</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="refAccNameNo" formControlName="refAccHolderNumberControl" class="form-control"/>
-                </div>            
+                    <input type="number" id="refAccNameNo" formControlName="refAccHolderNumberControl" class="form-control"/>
+                </div>       
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="refAccHolderNumberControl.touched && refAccHolderNumberControl.invalid">Please Select Reference Account Holder Number!</span>                
+                </div>     
             </div>    
 
             <div class="row col-xs-12">
@@ -258,15 +288,16 @@
                 <div class="col-sm-4">
                     <textarea rows="3" cols="30" id="refaddress" formControlName="refAccHolderAddressControl" class="form-control">
                         </textarea>
-                </div>            
+                </div>    
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="refAccHolderAddressControl.touched && refAccHolderAddressControl.invalid">Please Select Reference Account Holder Address!</span>                
+                </div>          
             </div>
 
             <div class="row col-sm-1">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted" [disabled]="customerRegistrationControl.invalid">Submit</button>
             </div>
-
     </form>   
-    <Pre>{{customerRegistrationControl.value | json}}</Pre>     
-</div>
+    </div>
     
 

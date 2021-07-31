@@ -280,4 +280,9 @@ export class CustomerRegistrationComponent implements OnInit {
         let defaultState : any = this.stateModel.find(state => state.name === this.userModel.state );         
         this.customerRegistrationControl.get('stateControl').patchValue(defaultState.id);   
       }
+
+      onCustomerRegistrationFormSubmitted()
+      {
+        console.log("Customer Details Submitted");
+      }
    }

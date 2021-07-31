@@ -1,0 +1,79 @@
+input.ng-invalid.ng-touched
+{
+    border: 2px solid red
+}
+
+.row
+{
+    margin-top: 2px;
+    margin-bottom: 3px;
+}
+
+h1
+{
+  color:black;  
+}
+
+label
+{
+    font-weight: bold;    
+    color: black;
+}
+
+.card-header
+{
+  background-color: grey;
+}
+
+h3
+{
+  font-weight: bolder;
+}
+
+.card-body
+{
+  background-color: lightcyan  
+}
+
+fieldset {
+  margin: 8px;
+  border: 1px solid silver;
+  padding: 8px;    
+  border-radius: 4px;
+}
+
+.loader {
+  height: 40px;
+  left: 5%;
+  right: 90%;
+  position: absolute;
+  top: 25%;
+  bottom:75%;
+  width: 25%;
+}
+
+.background{
+    height: 100vh;
+    width: 100vw;    
+    background: url('https://wallpapercave.com/wp/wp4316635.jpg') no-repeat;;
+    background-size: cover;
+    background-position: center center;
+    color: white;    
+    margin-left: 0;
+  }
+  /* https://wallpapercave.com/wp/wp4316635.jpg */
+
+  /* 'https://wallpapercave.com/wp/wp3168670.jpg */
+
+ 
+  /* #image{
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position: relative;;
+  } */
+
+  /* body {
+    background-color: #2ecc71;
+  } */
