@@ -10,13 +10,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { LoanComponent } from './loan/loan.component';
 import { LoginComponent } from './login/login.component';
+import { UserdetailComponent } from './userdetail/userdetail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerRegistrationComponent,
     LoanComponent,
-    LoginComponent    
+    LoginComponent,
+    UserdetailComponent    
   ],
   imports: [
     BrowserModule,

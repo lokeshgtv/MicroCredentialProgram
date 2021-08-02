@@ -1,5 +1,6 @@
 import { UserConstants } from "../Constants/User.Contants";
 import { BankAccountDetails } from "./BankAccountDetails.Model";
+import { LoanAccountDetails } from "./LoanAccountDetails.Model";
 
 export class User
 {
@@ -20,5 +21,6 @@ export class User
     dob: Date;
     registrationDate: string;
     accountType: string;
-    bankAccountDetail : BankAccountDetails;   
+    bankAccountDetail : BankAccountDetails; 
+    loanAccountDetail : LoanAccountDetails;  
 }
