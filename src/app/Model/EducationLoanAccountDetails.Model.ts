@@ -8,4 +8,9 @@ export class EducationLoanAccountDetails
     fatherCurrentExperience: number
     rationCardNo: number;
     annualIncome: number;
+
+    constructor(init?: Partial<EducationLoanAccountDetails>)
+    {
+        Object.assign(this, init);
+    }
 }

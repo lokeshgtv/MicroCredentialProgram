@@ -7,11 +7,11 @@
                 <label>Name</label>                   
             </div>
             <div class="col-sm-3">
-                <input #name type="text" id="name" formControlName="nameControl1" class="form-control"/>                
+                <input #nam type="text" id="name" formControlName="name" class="form-control"/>                
             </div>   
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="nameControl.touched && nameControl.hasError('required')">Please Enter Name Of The Applicant!</span>
-                <span class="text-danger" *ngIf="nameControl.touched && nameControl.hasError('pattern')">Name should contain only Alphabets and Spaces</span>
+                <span class="text-danger" *ngIf="name.touched && name.hasError('required')">Please Enter Name Of The Applicant!</span>
+                <span class="text-danger" *ngIf="name.touched && name.hasError('pattern')">Name should contain only Alphabets and Spaces</span>
             </div>         
         </div>     
         
@@ -20,10 +20,10 @@
                 <label>UserName</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="userName" formControlName="userNmaeControl" class="form-control"/>                
+                <input type="text" id="userName" formControlName="userNmae" class="form-control"/>                
             </div>    
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="userNmaeControl.touched && userNmaeControl.invalid">Please Enter User Name!</span>                
+                <span class="text-danger" *ngIf="userNmae.touched && userNmae.invalid">Please Enter User Name!</span>                
             </div>         
         </div>     
         <div class="row col-xs-12">
@@ -31,10 +31,10 @@
                 <label>Password</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="password" id="password" formControlName="passwordControl" class="form-control"/>                
+                <input type="password" id="password" formControlName="password" class="form-control"/>                
             </div>            
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="passwordControl.touched && passwordControl.invalid">Please Enter Password!</span>                
+                <span class="text-danger" *ngIf="password.touched && password.invalid">Please Enter Password!</span>                
             </div> 
         </div>     
         <div class="row col-xs-12">
@@ -42,10 +42,10 @@
                 <label>Guardian Type</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="guardianType" formControlName="guardianTypeControl" class="form-control"/>                 
+                <input type="text" id="guardianType" formControlName="guardianType" class="form-control"/>                 
             </div>        
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="guardianTypeControl.touched && guardianTypeControl.invalid">Please Enter Guardian Type!</span>                
+                <span class="text-danger" *ngIf="guardianType.touched && guardianType.invalid">Please Enter Guardian Type!</span>                
             </div>     
         </div>     
         <div class="row col-xs-12">
@@ -53,10 +53,10 @@
                 <label>Guardian Name</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="guardianName" formControlName="guardianNameControl" class="form-control"/>
+                <input type="text" id="guardianName" formControlName="guardianName" class="form-control"/>
             </div>     
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="guardianNameControl.touched && guardianNameControl.invalid">Please Enter Guardian Name!</span>                
+                <span class="text-danger" *ngIf="guardianName.touched && guardianName.invalid">Please Enter Guardian Name!</span>                
             </div>       
         </div>     
         <div class="row col-xs-12">
@@ -64,11 +64,11 @@
                 <label>Address</label>                 
             </div>
             <div class="col-sm-4">
-                <textarea rows="3" cols="30" id="address" formControlName="addressControl" class="form-control">
+                <textarea rows="3" cols="30" id="address" formControlName="address" class="form-control">
                     </textarea>
             </div>
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="addressControl.touched && addressControl.invalid">Please Enter Address!</span>                
+                <span class="text-danger" *ngIf="address.touched && address.invalid">Please Enter Address!</span>                
             </div>    
                       
         </div>
@@ -77,10 +77,10 @@
                 <label>Citizenship</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="citizenship" formControlName="citizenshipControl" class="form-control"/>
+                <input type="text" id="citizen" formControlName="citizenship" class="form-control"/>
             </div>    
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="citizenshipControl.touched && citizenshipControl.invalid">Please Enter Citizenship!</span>                
+                <span class="text-danger" *ngIf="citizenship.touched && citizenship.invalid">Please Enter Citizenship!</span>                
             </div>            
         </div>   
         
@@ -89,13 +89,16 @@
                     <label>Country</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select #selectedCountry id="country" formControlName="countryControl" class="dropdown col-sm-12" (change)="onCountryChange(selectedCountry.value)">                        
+                    <select #selectedCountry id="country" formControlName="country" class="dropdown col-sm-12" (change)="onCountryChange(selectedCountry.value)">                        
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let countryModel of countriesModel; let i = index" 
-                        [selected]="countryControl.value === countryModel.id"
+                        [selected]="country.value === countryModel.id"
                         [value]="countryModel.id">{{countryModel.name}}</Option>
                     </select>
-                </div>     
+                </div>   
+                <div class="row col-xs-12">
+                    <span class="text-danger" *ngIf="country.touched && country.invalid">Please Enter Country!</span>                
+                </div>      
             </div>   
 
             <div class="row col-xs-12">
@@ -103,15 +106,15 @@
                     <label>State</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select #selectedState id="state" formControlName="stateControl"  class="dropdown col-sm-12">
+                    <select #selectedState id="state" formControlName="state"  class="dropdown col-sm-12">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let stateModel of statesForSelectedCountry; let i = index" 
-                        [selected]="stateControl.value === stateModel.id"
+                        [selected]="state.value === stateModel.id"
                         value="{{stateModel.id}}">{{stateModel.name}}</Option>
                     </select>
                 </div>
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="stateControl.touched && stateControl.invalid">Please Enter State!</span>                
+                    <span class="text-danger" *ngIf="state.touched && state.invalid">Please Enter State!</span>                
                 </div>         
             </div> 
             
@@ -120,11 +123,11 @@
                     <label>Email Address</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="email" id="email" formControlName="EmailAddressControl" class="form-control"/>
+                    <input type="email" id="email" formControlName="EmailAddress" class="form-control"/>
                 </div> 
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="EmailAddressControl.touched && EmailAddressControl.hasError('required')">Please Enter Email Address!</span>                
-                    <span class="text-danger" *ngIf="EmailAddressControl.touched && EmailAddressControl.hasError('email')">Please Enter Valid Email Address!</span>                
+                    <span class="text-danger" *ngIf="EmailAddress.touched && EmailAddress.hasError('required')">Please Enter Email Address!</span>                
+                    <span class="text-danger" *ngIf="EmailAddress.touched && EmailAddress.hasError('email')">Please Enter Valid Email Address!</span>                
                 </div>               
             </div>   
 
@@ -133,7 +136,7 @@
                     <label>Gender</label>                 
                 </div>
                 <div class="col-sm-1" *ngFor="let gender of GenderModel; let i = index">
-                    <input class="form-check-input" type="radio" id="gender{{i}}" formControlName="genderControl" value="{{gender}}">{{gender}}
+                    <input class="form-check-input" type="radio" id="gender{{i}}" formControlName="gender" value="{{gender}}">{{gender}}
                 </div>            
             </div>   
 
@@ -142,7 +145,7 @@
                     <label>Marital Status</label>                 
                 </div>
                 <div class="col-sm-1" *ngFor="let maritalStatus of MaritalStatusModel; let i = index">
-                    <input  class="form-check-input" type="radio" id="maritalStatus{{i}}" formControlName="maritalStatusControl" value="{{maritalStatus}}">{{maritalStatus}}
+                    <input  class="form-check-input" type="radio" id="maritalStatus{{i}}" formControlName="maritalStatus" value="{{maritalStatus}}">{{maritalStatus}}
                 </div>            
             </div>  
             
@@ -151,10 +154,10 @@
                     <label>Contact Number</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="contactNumber" formControlName="contactNoControl" class="form-control" maxlength="10"/>
+                    <input type="text" id="contactNumber" formControlName="contactNo" class="form-control" maxlength="10"/>
                 </div>            
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="contactNoControl.touched && contactNoControl.invalid">Please Enter Contact Number (10 digits)!</span>                
+                    <span class="text-danger" *ngIf="contactNo.touched && contactNo.invalid">Please Enter Contact Number (10 digits)!</span>                
                 </div>         
             </div>   
 
@@ -162,15 +165,15 @@
                 <div class="col-sm-2">
                     <label>Date Of Birth</label>                 
                 </div>
-                <div class="col-sm-3">
-                    <input #selectedDOB type="date" id="dob" formControlName="dobControl" class="form-control" 
+                <div class="col-sm-4">
+                    <input #selectedDOB type="date" id="dob" formControlName="dob" class="form-control" 
                     (change)="onDOBChanged(selectedDOB.value)" min="maxDate"/>
                 </div>     
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="dobControl.touched && dobControl.hasError('required')">Please Enter Date Of Birth!</span>                
+                    <span class="text-danger" *ngIf="dob.touched && dob.hasError('required')">Please Enter Date Of Birth!</span>                
                 </div>       
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="dobControl.touched && dobControl.hasError('Invalid DOD')">Please Enter DOB (Where age > 18) !</span>                
+                    <span class="text-danger" *ngIf="dob.touched && dob.hasError('Invalid DOD')">Please Enter DOB (Where age > 18) !</span>                
                 </div>                     
             </div>               
 
@@ -179,7 +182,7 @@
                     <label>Registration Date</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="regDate" formControlName="registrationDateControl" class="form-control">
+                    <input type="text" id="regDate" formControlName="registrationDate" class="form-control">
                 </div>            
             </div>                    
             
@@ -188,14 +191,14 @@
                     <label>Account Type</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select #selectedAccount id="accountType" formControlName="accountTypeControl" class="dropdown col-sm-12" 
+                    <select #selectedAccount id="accountType" formControlName="accountType" class="dropdown col-sm-12" 
                         (change)="onAccountTypeChange(selectedAccount.value)">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let accountType of AccountTypeModel; let i = index" [ngValue]="accountType">{{accountType}}</Option>
                     </select>
                 </div>       
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="accountTypeControl.touched && accountTypeControl.invalid">Please Select Account Type!</span>                
+                    <span class="text-danger" *ngIf="accountType.touched && accountType.invalid">Please Select Account Type!</span>                
                 </div>            
             </div>  
 
@@ -204,10 +207,10 @@
                     <label>Branch Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="branchName" formControlName="branchNameControl" class="form-control"/>
+                    <input type="text" id="branchName" formControlName="branchName" class="form-control"/>
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="branchNameControl.touched && branchNameControl.invalid">Please Enter Branch Name!</span>                
+                    <span class="text-danger" *ngIf="branchName.touched && branchName.invalid">Please Enter Branch Name!</span>                
                 </div>                
             </div>          
 
@@ -216,10 +219,10 @@
                     <label>Citizen Status</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="citizenStatus" formControlName="citizenStatusControl" class="form-control"/>
+                    <input type="text" id="citizenStatus" formControlName="citizenStatus" class="form-control"/>
                 </div>        
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="citizenStatusControl.touched && citizenStatusControl.invalid">Please Enter Citizen Status!</span>                
+                    <span class="text-danger" *ngIf="citizenStatus.touched && citizenStatus.invalid">Please Enter Citizen Status!</span>                
                 </div>      
             </div>  
 
@@ -228,10 +231,10 @@
                     <label>Initial Deposit Amount</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="initialDepositAmount" formControlName="initialDepositAmountControl" class="form-control"/>
+                    <input type="text" id="initialDepositAmount" formControlName="initialDepositAmount" class="form-control"/>
                 </div>    
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="initialDepositAmountControl.touched && initialDepositAmountControl.invalid">Please Enter Initial Deposit Amount!</span>                
+                    <span class="text-danger" *ngIf="initialDepositAmount.touched && initialDepositAmount.invalid">Please Enter Initial Deposit Amount!</span>                
                 </div>         
             </div>         
 
@@ -240,7 +243,7 @@
                     <label>Identification Proof Type</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select id="idProofType" formControlName="identificationProofTypeControl" class="dropdown col-sm-12">
+                    <select id="idProofType" formControlName="identificationProofType" class="dropdown col-sm-12">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let idType of IdentificationProofTypeModel; let i = index" value="{{idType}}">{{idType}}</Option>
                     </select>
@@ -252,10 +255,10 @@
                     <label>Identification Document No</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="identificationDocumentNo" formControlName="identificationDocumentNoControl" class="form-control"/>
+                    <input type="text" id="identificationDocumentNo" formControlName="identificationDocumentNumer" class="form-control"/>
                 </div>            
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="identificationDocumentNoControl.touched && identificationDocumentNoControl.invalid">Please Select Identification Document Number!</span>                
+                    <span class="text-danger" *ngIf="identificationDocumentNumer.touched && identificationDocumentNumer.invalid">Please Select Identification Document Number!</span>                
                 </div>
             </div>       
 
@@ -264,10 +267,10 @@
                     <label>Ref Acc Holder Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="refAccName" formControlName="refAccHolderNameControl" class="form-control"/>
+                    <input type="text" id="refAccName" formControlName="referenceAccountHolderName" class="form-control"/>
                 </div>  
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="refAccHolderNameControl.touched && refAccHolderNameControl.invalid">Please Select Reference Account Holder Name!</span>                
+                    <span class="text-danger" *ngIf="referenceAccountHolderName.touched && referenceAccountHolderName.invalid">Please Select Reference Account Holder Name!</span>                
                 </div>        
             </div>    
 
@@ -276,10 +279,10 @@
                     <label>Ref Acc Holder Number</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="number" id="refAccNameNo" formControlName="refAccHolderNumberControl" class="form-control"/>
+                    <input type="number" id="refAccNameNo" formControlName="referenceAccountHolderNumber" class="form-control"/>
                 </div>       
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="refAccHolderNumberControl.touched && refAccHolderNumberControl.invalid">Please Select Reference Account Holder Number!</span>                
+                    <span class="text-danger" *ngIf="referenceAccountHolderNumber.touched && referenceAccountHolderNumber.invalid">Please Select Reference Account Holder Number!</span>                
                 </div>     
             </div>    
 
@@ -288,16 +291,16 @@
                     <label>Ref Acc Holder Address</label>                 
                 </div>
                 <div class="col-sm-4">
-                    <textarea rows="3" cols="30" id="refaddress" formControlName="refAccHolderAddressControl" class="form-control">
+                    <textarea rows="3" cols="30" id="refaddress" formControlName="referenceAccountHolderAddress" class="form-control">
                         </textarea>
                 </div>    
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="refAccHolderAddressControl.touched && refAccHolderAddressControl.invalid">Please Select Reference Account Holder Address!</span>                
+                    <span class="text-danger" *ngIf="referenceAccountHolderAddress.touched && referenceAccountHolderAddress.invalid">Please Select Reference Account Holder Address!</span>                
                 </div>          
             </div>
 
-            <div class="row col-sm-1">
-                <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted" [disabled]="customerRegistrationControl.invalid">Submit</button>
+            <div class="row col-sm-2">
+                <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted()" [disabled]="customerRegistrationControl.invalid">Submit</button>
             </div>
     </form>   
     </div>

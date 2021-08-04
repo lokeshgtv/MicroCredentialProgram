@@ -5,4 +5,9 @@ export class NonEducationLoanAccountDetails
    designation: string;
    totalExperience: number;
    currentExperience: number;
+
+   constructor(init?: Partial<NonEducationLoanAccountDetails>)
+    {
+        Object.assign(this, init);
+    }
 }

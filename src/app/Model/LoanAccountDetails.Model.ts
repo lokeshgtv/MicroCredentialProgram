@@ -11,4 +11,9 @@ export class LoanAccountDetails
     duration: Number;   
     educationLoanAccountDetail: EducationLoanAccountDetails;
     otherLoanAccountDetail: NonEducationLoanAccountDetails;
+
+    constructor(init?: Partial<LoanAccountDetails>)
+    {
+        Object.assign(this, init);
+    }
 }

@@ -23,4 +23,9 @@ export class User
     accountType: string;
     bankAccountDetail : BankAccountDetails; 
     loanAccountDetail : LoanAccountDetails;  
+    
+    constructor(init?: Partial<User>)
+    {
+        Object.assign(this, init);
+    }
 }

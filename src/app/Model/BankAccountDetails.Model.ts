@@ -9,13 +9,17 @@ export class BankAccountDetails
     accountType: string;
     bankName: string;
     branchName: string;
-    citizenStatus: boolean;
+    citizenStatus: string;
     initialDepositAmount: number;
     identificationProofType: string;
     identificationDocumentNumer: string;
     referenceAccountHolderName: string; 
     referenceAccountHolderNumber: string; 
-    referenceAccountHolderAddress: string; 
-    UserDetail : User;
+    referenceAccountHolderAddress: string;     
     accountActivationDate: Date;
+
+    constructor(init?: Partial<BankAccountDetails>)
+    {
+        Object.assign(this, init);
+    }
 }

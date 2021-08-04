@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { UserService } from './Service/UserService.Service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [   HttpClient, DropDownDataService, DatePipe ],
+  providers: [   HttpClient, DropDownDataService, DatePipe, UserService  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

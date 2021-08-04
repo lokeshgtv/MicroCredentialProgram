@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link active" href="#">Home </a>
+                <a class="nav-link active" href="#" [hidden]="IsCustomerRegistration">Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Edit User Details</a>
+                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Edit User Details</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Apply Loan</a>
+                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Apply Loan</a>
               </li>
              
             </ul>
@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav navbar-right">
               <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Logout</a>
               </li>
             </ul>
         </div>             
@@ -31,7 +31,7 @@
     <div class="col-sm-7">
         <app-customer-registration></app-customer-registration>
     </div>
-    <div *ngIf="false" class="col-sm-5">
+    <div *ngIf="!IsCustomerRegistration" class="col-sm-5">
       <app-loan></app-loan>
   </div>
 </div>
