@@ -62,7 +62,7 @@ export class CustomerRegistrationComponent implements OnInit {
 
     constructor(private service: DropDownDataService, public datePipe: DatePipe )
     {      
-      
+      console.log("Loaded Registration");
       //Set the Item Source for dropdown controls
       this.GenderModel = new UserConstants().Gender;
       this.MaritalStatusModel = new UserConstants().MaritalStatus;

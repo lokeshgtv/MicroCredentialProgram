@@ -12,11 +12,8 @@ import { LoanComponent } from './loan/loan.component';
 import { LoginComponent } from './login/login.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -31,12 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-
+    AppRoutingModule
   ],
   providers: [   HttpClient, DropDownDataService, DatePipe ],
   bootstrap: [AppComponent]

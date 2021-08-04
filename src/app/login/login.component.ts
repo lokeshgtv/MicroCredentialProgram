@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, FormGroup, FormControl, Validator, Validators, NG_VALIDATORS, ValidatorFn, Form } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   userNmaeControl: FormControl;
   passwordControl: FormControl;
 
-  constructor() { 
+  constructor( private route: ActivatedRoute,
+    private router: Router,) { 
 
 
     this.userNmaeControl =  new FormControl('', [Validators.required]);

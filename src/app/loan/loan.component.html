@@ -1,4 +1,6 @@
 <div class="container"> 
+    <h5 *ngIf="IsLoanRegistration">Apply Loan</h5>
+    <h5 *ngIf="!IsLoanRegistration">Loan Details</h5>
     <form [formGroup]="loanFormControl" class="form-horizontal formStyle">    
         <div class="row col-xs-12">
             <div class="col-sm-2">

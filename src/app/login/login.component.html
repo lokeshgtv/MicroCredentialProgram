@@ -34,16 +34,16 @@
                     </div>          
                     <div class="row col-sm-12">
                         <div class="col-sm-7">
-                            <a href="">New User Signup!</a>                 
+                            <a [routerLink]="['/userDetail', true]" class="btn btn-link">New User Signup!</a>                 
                         </div>
                         <div class="col-sm-5">
                             <button type="submit" class="btn btn-primary" (click)="onLoginFormSubmitted" [disabled]="loginFormsControl.invalid">Log in</button>
                         </div>
                     </div>    
-                </form>   
+                </form>                   
             </div>
         </div>
-    </div>
+    </div>        
 </div>
     
 

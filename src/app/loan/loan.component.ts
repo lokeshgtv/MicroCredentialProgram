@@ -12,6 +12,7 @@ import { MinimimDateValidator } from '../Validators/CustomValidators'
 })
 export class LoanComponent implements OnInit {
 
+  IsLoanRegistration : boolean = true;
   loanFormControl : FormGroup;
   educationLoanFormControl: FormGroup;
   personalLoanFormControl: FormGroup;

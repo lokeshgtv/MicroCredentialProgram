@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 
 @Component({
   selector: 'app-userdetail',
@@ -7,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserdetailComponent implements OnInit {
 
+  IsCustomerRegistration: boolean = true;
   public navbarCollapsed = true;
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.route.data
+      .subscribe( (data: Data) =>
+      {
+        this.IsCustomerRegistration = data[]  
+      })
+
   }
 
 }

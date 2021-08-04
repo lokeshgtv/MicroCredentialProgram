@@ -26,11 +26,13 @@
             </ul>
         </div>             
   </div>   
-<div class="col-xs-12">
-  <div class="container-fluid body-content scrollable col-xs-6">
-      <app-customer-registration></app-customer-registration>
+<div class="container-fluid col-xs-12">
+  <div class="row col-sm-12">
+    <div class="col-sm-7">
+        <app-customer-registration></app-customer-registration>
+    </div>
+    <div *ngIf="false" class="col-sm-5">
+      <app-loan></app-loan>
   </div>
-  <div class="container-fluid body-content scrollable col-xs-6">
-    <app-loan></app-loan>
 </div>
 </div>
