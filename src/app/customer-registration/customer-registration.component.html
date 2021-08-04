@@ -1,4 +1,6 @@
 <div class="container"> 
+    <h5 *ngIf="IsCustomerRegistration">Customer Registration</h5>
+    <h5 *ngIf="!IsCustomerRegistration">Customer Details</h5>
     <form [formGroup]="customerRegistrationControl" class="form-horizontal formStyle">    
         <div class="row col-xs-12">
             <div class="col-sm-2">

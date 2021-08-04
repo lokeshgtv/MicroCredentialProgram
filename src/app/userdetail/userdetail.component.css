@@ -12,3 +12,8 @@
     text-align: center;
     font-size:  large;    
 }
+
+.container-fluid
+{
+    padding-top: 80px;
+}

@@ -21,6 +21,7 @@ import { DOBAgeValidatorForBankAccountOpening } from '../Validators/CustomValida
 })
 export class CustomerRegistrationComponent implements OnInit {
   
+  IsCustomerRegistration: boolean = true;
   countriesModel : CountryModel[];
   stateModel : any[];
   statesForSelectedCountry: any[];  
