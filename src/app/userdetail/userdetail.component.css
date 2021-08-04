@@ -1,0 +1,14 @@
+.navbar-brand
+{
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+.nav-item
+{
+    text-align: center;
+    font-size:  large;    
+}

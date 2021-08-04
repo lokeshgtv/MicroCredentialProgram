@@ -27,9 +27,15 @@ label
 
 h3
 {
+  color: black;
+  font-weight: bolder;
+  text-align: center;
+}
+h4
+{
+  color: black;
   font-weight: bolder;
 }
-
 .card-body
 {
   background-color: lightcyan  

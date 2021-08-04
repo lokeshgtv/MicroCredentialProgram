@@ -11,6 +11,12 @@ import { DatePipe } from '@angular/common';
 import { LoanComponent } from './loan/loan.component';
 import { LoginComponent } from './login/login.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,14 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+
   ],
   providers: [   HttpClient, DropDownDataService, DatePipe ],
   bootstrap: [AppComponent]
