@@ -8,6 +8,8 @@ import { BankAccountDetails } from '../Model/BankAccountDetails.Model';
 @Injectable()
 export class UserService
 {
+    private isUserLoggedIn : boolean;
+
     constructor(){}
     IsValidUser(uName: string, pwd: string) : Observable<string>
     {
@@ -27,7 +29,7 @@ export class UserService
     }
     AddUserDetail(userDetail: User) : Observable<string>
     {
-        console.log("User Details added :", userDetail);        
+        //console.log("User Details added :", userDetail);        
         return of("Cust123456");
     }
 
@@ -45,6 +47,7 @@ export class UserService
             initialDepositAmount: 5000,
             identificationProofType: 'Aadhar',
             identificationDocumentNumer: '111111111',
+            referenceAccountHolderNumber: '1010101010',
             referenceAccountHolderName: 'Gopi',
             referenceAccountHolderAddress: 'Chennai',
             accountActivationDate : new Date()
@@ -67,10 +70,20 @@ export class UserService
             maritalStatus : 'Married',
             contactNo : 9841550550,
             dob: new Date(1984, 12, 6),
-            registrationDate: new Date().toString(),
+            registrationDate: new Date(2020, 12, 6).toString(),
             accountType: 'Savings',
             bankAccountDetail: bankAccountDetailModel
         });
         return userModel;
+    }
+
+    SetUserLoggedInStatus(status: boolean)
+    {
+        this.isUserLoggedIn = status;
+    }
+
+    GetUserLoggedInStatus() : boolean
+    {
+        return this.isUserLoggedIn;
     }
 }

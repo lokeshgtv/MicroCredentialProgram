@@ -46,12 +46,14 @@ export class LoginComponent implements OnInit {
         if(result === '')
         {
           alert("Invalid User Name and Password");
+          this.userService.SetUserLoggedInStatus(false);
           this.loginFormsControl.get('userNmaeControl').patchValue('');
           this.loginFormsControl.get('passwordControl').patchValue('');
         }
         else
         {
           alert("Login Successful. You will be re-directed to User Details")
+          this.userService.SetUserLoggedInStatus(true);
           this.router.navigate(['userDetail', result], {relativeTo: this.route})
         }
     })       

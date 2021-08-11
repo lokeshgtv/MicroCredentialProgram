@@ -89,10 +89,10 @@
                     <label>Country</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select #selectedCountry id="country" formControlName="country" class="dropdown col-sm-12" (change)="onCountryChange(selectedCountry.value)">                        
+                    <select #selectedCountry id="countryId" formControlName="country" class="dropdown col-sm-12" (change)="onCountryChange(selectedCountry.value)">                        
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let countryModel of countriesModel; let i = index" 
-                        [selected]="country.value === countryModel.id"
+                        [selected]="country.value === countryModel.name"
                         [value]="countryModel.id">{{countryModel.name}}</Option>
                     </select>
                 </div>   
@@ -106,10 +106,10 @@
                     <label>State</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <select #selectedState id="state" formControlName="state"  class="dropdown col-sm-12">
+                    <select #selectedState id="stateId" formControlName="state"  class="dropdown col-sm-12">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item" *ngFor="let stateModel of statesForSelectedCountry; let i = index" 
-                        [selected]="state.value === stateModel.id"
+                        [selected]="state.value === stateModel.name"
                         value="{{stateModel.id}}">{{stateModel.name}}</Option>
                     </select>
                 </div>
@@ -300,7 +300,7 @@
             </div>
 
             <div class="row col-sm-2">
-                <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted()" [disabled]="customerRegistrationControl.invalid">Submit</button>
+                <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted()" [disabled]="customerRegistrationControl.invalid || !IsFormGroupEditable">Submit</button>
             </div>
     </form>   
     </div>

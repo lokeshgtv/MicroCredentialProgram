@@ -9,8 +9,7 @@ const appRoutes: Routes = [
 { path: '', component: LoginComponent },
 { path: 'login', component: LoginComponent },
 { path: 'userDetail', component: UserdetailComponent },
-{ path: 'userDetail/:id', component: UserdetailComponent }
-    
+{ path: 'userDetail/:id', component: UserdetailComponent}    
 ]
 
 @NgModule(

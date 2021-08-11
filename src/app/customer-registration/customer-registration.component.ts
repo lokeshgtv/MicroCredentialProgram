@@ -9,12 +9,11 @@ import { DatePipe } from '@angular/common';
 import { BankAccountDetails } from '../Model/BankAccountDetails.Model';
 import { formatDate } from '@angular/common'
 import * as moment from 'moment';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 import { DOBAgeValidatorForBankAccountOpening } from '../Validators/CustomValidators'
 import { UserService } from '../Service/UserService.Service';
-
 
 @Component({
   selector: 'app-customer-registration',
@@ -24,6 +23,7 @@ import { UserService } from '../Service/UserService.Service';
 export class CustomerRegistrationComponent implements OnInit {
   
   IsCustomerRegistration: boolean = true;
+  IsFormGroupEditable: boolean;
   customerId: string;
   countriesModel : CountryModel[];
   stateModel : any[];
@@ -68,7 +68,11 @@ export class CustomerRegistrationComponent implements OnInit {
       public userService: UserService, private route: ActivatedRoute,
       private router: Router )
     {      
-      console.log("Loaded Registration");
+
+      this.IsCustomerRegistration =  !this.userService.GetUserLoggedInStatus();
+      this.IsFormGroupEditable = this.IsCustomerRegistration;
+      console.log("Customer Logged In Status : ", this.IsCustomerRegistration);
+      
       //Set the Item Source for dropdown controls
       this.GenderModel = new UserConstants().Gender;
       this.MaritalStatusModel = new UserConstants().MaritalStatus;
@@ -143,7 +147,9 @@ export class CustomerRegistrationComponent implements OnInit {
                 this.GetDefaultUserDetails();
                 this.SetDefaultUserDetails();  
                 this.UpdateRegistrationDate();      
-              }
+              }        
+              let country = this.customerRegistrationControl.get('country').value;
+              this.onCountryChange(this.GetCountryId(country));      
           });                 
         this.service.getCountries()
         .then(data => 
@@ -157,14 +163,18 @@ export class CustomerRegistrationComponent implements OnInit {
     
         if(!this.IsCustomerRegistration)
         {
+          console.log("Fetching Customer Details")
           this.userService.GetUserDetailByCustId(this.customerId)
           .subscribe((userData) =>
           {
-            this.SetFormValues(userData);
+            this.SetFormValues(userData);            
           })          
         }
        
     }
+
+
+   
 
     UpdateRegistrationDate()
     {
@@ -252,23 +262,26 @@ export class CustomerRegistrationComponent implements OnInit {
           citizenship: user.citizenship,
           country: user.country,
           state: user.state,
-          email: user.EmailAddress,
+          EmailAddress: user.EmailAddress,
           gender: user.gender,
           maritalStatus: user.maritalStatus,
-          contactNumber: user.contactNo,
-          dob: user.dob,
-          regDate: user.registrationDate,
-          accType: user.bankAccountDetail.accountType,
+          contactNo: user.contactNo,
+          dob: this.formatDate(user.dob) ,
+          registrationDate: moment(user.registrationDate).format('YYYY-MM-DD'),
+          accountType: user.bankAccountDetail.accountType,
           branchName: user.bankAccountDetail.branchName,
           citizenStatus: user.bankAccountDetail.citizenStatus,
           initialDepositAmount: user.bankAccountDetail.initialDepositAmount,
           identificationProofType: user.bankAccountDetail.identificationProofType,
-          identificationDocumentNoControl: user.bankAccountDetail.identificationDocumentNumer,
+          identificationDocumentNumer: user.bankAccountDetail.identificationDocumentNumer,
           referenceAccountHolderName: user.bankAccountDetail.referenceAccountHolderName,
           referenceAccountHolderNumber: user.bankAccountDetail.referenceAccountHolderNumber,
           referenceAccountHolderAddress: user.bankAccountDetail.referenceAccountHolderAddress         
         };
+        console.log("User Details loaded :", custRegForm);
         this.customerRegistrationControl.setValue(custRegForm);
+        this.customerRegistrationControl.disable();
+        
       }
 
       GetDefaultUserDetails() : User
@@ -333,5 +346,25 @@ export class CustomerRegistrationComponent implements OnInit {
 
           })
         }
+      }
+      
+      GetCountryId(countryName: string) : string
+      {
+        if(this.countriesModel != null)
+        {
+            let countryDetail = this.countriesModel.find(item => item.name === countryName);
+            return countryDetail.id;
+        }
+        return "";
+      }
+
+      private formatDate(date) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
       }
    }
