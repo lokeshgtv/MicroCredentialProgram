@@ -24,6 +24,7 @@ export class CustomerRegistrationComponent implements OnInit {
   
   IsCustomerRegistration: boolean = true;
   IsFormGroupEditable: boolean;
+  allowEdit: boolean;
   customerId: string;
   countriesModel : CountryModel[];
   stateModel : any[];
@@ -69,8 +70,7 @@ export class CustomerRegistrationComponent implements OnInit {
       private router: Router )
     {      
 
-      this.IsCustomerRegistration =  !this.userService.GetUserLoggedInStatus();
-      this.IsFormGroupEditable = this.IsCustomerRegistration;
+      this.IsCustomerRegistration =  !this.userService.GetUserLoggedInStatus();      
       console.log("Customer Logged In Status : ", this.IsCustomerRegistration);
       
       //Set the Item Source for dropdown controls
@@ -147,7 +147,7 @@ export class CustomerRegistrationComponent implements OnInit {
                 this.GetDefaultUserDetails();
                 this.SetDefaultUserDetails();  
                 this.UpdateRegistrationDate();      
-              }        
+              }             
               let country = this.customerRegistrationControl.get('country').value;
               this.onCountryChange(this.GetCountryId(country));      
           });                 
@@ -170,6 +170,20 @@ export class CustomerRegistrationComponent implements OnInit {
             this.SetFormValues(userData);            
           })          
         }
+
+        
+        this.route.queryParams
+        .subscribe(
+          (queryParams: Params) => {
+            this.allowEdit = queryParams['allowEdit'];
+            console.log("Editable Status : ", this.allowEdit);                  
+            this.IsFormGroupEditable = this.IsCustomerRegistration || this.allowEdit;    
+            console.log("Form Group Editable Status1 : ", this.IsFormGroupEditable);
+            console.log(this.customerRegistrationControl);            
+          }
+        );
+        this.IsFormGroupEditable = this.IsCustomerRegistration || this.allowEdit;
+        console.log("Form Group Editable Status : ", this.IsFormGroupEditable);
        
     }
 
@@ -183,7 +197,7 @@ export class CustomerRegistrationComponent implements OnInit {
 
     onCountryChange(countryId: string)    
     {        
-      if(countryId !== null)
+      if(countryId !== null && countryId != '')
       {   
           this.statesForSelectedCountry = this.stateModel.filter(state => state.country_id === countryId);          
       }      
@@ -279,8 +293,9 @@ export class CustomerRegistrationComponent implements OnInit {
           referenceAccountHolderAddress: user.bankAccountDetail.referenceAccountHolderAddress         
         };
         console.log("User Details loaded :", custRegForm);
-        this.customerRegistrationControl.setValue(custRegForm);
-        this.customerRegistrationControl.disable();
+        this.customerRegistrationControl.setValue(custRegForm);        
+        let country = user.country;
+        this.onCountryChange(this.GetCountryId(country));
         
       }
 
@@ -350,7 +365,7 @@ export class CustomerRegistrationComponent implements OnInit {
       
       GetCountryId(countryName: string) : string
       {
-        if(this.countriesModel != null)
+        if(this.countriesModel != null && countryName != '')
         {
             let countryDetail = this.countriesModel.find(item => item.name === countryName);
             return countryDetail.id;

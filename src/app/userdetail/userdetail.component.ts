@@ -15,23 +15,7 @@ export class UserdetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.IsCustomerRegistration = !this.userService.GetUserLoggedInStatus();
-    // this.route.params
-    //   .subscribe( (data: Params) =>
-    //   {   
-    //     console.log(data['id']);     
-    //     if(data['id'] === undefined)
-    //     {
-    //       console.log("Parameter Un defined");
-    //       this.IsCustomerRegistration = true;
-    //     }
-    //     else
-    //     {
-    //       console.log("Parameter defined", data.parameter)          ;
-    //       this.IsCustomerRegistration = false;
-    //     }        
-    //   })
-
+    this.IsCustomerRegistration = !this.userService.GetUserLoggedInStatus();   
   }
 
 }

@@ -1,7 +1,8 @@
 <div class="container"> 
     <h5 *ngIf="IsCustomerRegistration">Customer Registration</h5>
     <h5 *ngIf="!IsCustomerRegistration">Customer Details</h5>
-    <form [formGroup]="customerRegistrationControl" class="form-horizontal formStyle">    
+    <form [formGroup]="customerRegistrationControl" class="form-horizontal formStyle"> 
+    <fieldset [disabled]="!IsFormGroupEditable">
         <div class="row col-xs-12">
             <div class="col-sm-2">
                 <label>Name</label>                   
@@ -302,6 +303,7 @@
             <div class="row col-sm-2">
                 <button type="submit" class="btn btn-primary" (click)="onCustomerRegistrationFormSubmitted()" [disabled]="customerRegistrationControl.invalid || !IsFormGroupEditable">Submit</button>
             </div>
+    </fieldset>   
     </form>   
     </div>
     

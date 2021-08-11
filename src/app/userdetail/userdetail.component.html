@@ -6,14 +6,23 @@
       </button>    
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link active" href="#" [hidden]="IsCustomerRegistration">Home </a>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/userDetail','1234']"
+                [queryParams]="{allowEdit: false}"
+                [routerLinkActive]="['is-active']"
+                 [hidden]="IsCustomerRegistration">Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Edit User Details</a>
+                <a class="nav-link" [routerLink]="['/userDetail','1234']"
+                [queryParams]="{allowEdit: true}"
+                [routerLinkActive]="['is-active']"
+                 [hidden]="IsCustomerRegistration">Edit User Details</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Apply Loan</a>
+                <a class="nav-link" [routerLink]="['/userDetail','1234', 'loan']"
+                [queryParams]="{accId: '123456789'}"
+                [routerLinkActive]="['is-active']"
+                [hidden]="IsCustomerRegistration">Apply Loan</a>
               </li>
              
             </ul>
@@ -21,19 +30,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav navbar-right">
               <li class="nav-item">
-                <a class="nav-link" href="#" [hidden]="IsCustomerRegistration">Logout</a>
+                <a class="nav-link" [routerLink]="['../login']"
+                [routerLinkActive]="['is-active']"
+                [hidden]="IsCustomerRegistration">Logout</a>
               </li>
             </ul>
         </div>             
   </div>   
 <div class="container-fluid col-xs-12">
   <div class="row col-sm-12">
-    <!-- <router-outlet></router-outlet> -->
-    <div class="col-sm-7">
+    <router-outlet></router-outlet>
+    <!-- <div class="col-sm-7">
         <app-customer-registration></app-customer-registration>
     </div>
     <div *ngIf="!IsCustomerRegistration" class="col-sm-5">
       <app-loan></app-loan>
-  </div>
+  </div> -->
 </div>
 </div>

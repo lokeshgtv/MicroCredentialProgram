@@ -1,6 +1,7 @@
 import {} from "./User.Model"
 import { UserConstants } from "../Constants/User.Contants"
 import { User } from "./User.Model"
+import { LoanAccountDetails } from './LoanAccountDetails.Model';
 export class BankAccountDetails
 {
     customerId: string;
@@ -17,6 +18,7 @@ export class BankAccountDetails
     referenceAccountHolderNumber: string; 
     referenceAccountHolderAddress: string;     
     accountActivationDate: Date;
+    loanDetail: LoanAccountDetails;
 
     constructor(init?: Partial<BankAccountDetails>)
     {

@@ -34,7 +34,9 @@
                     </div>          
                     <div class="row col-sm-12">
                         <div class="col-sm-7">
-                            <a [routerLink]="['/userDetail']" class="btn btn-link">New User Signup!</a>                 
+                            <a [routerLink]="['/userDetail/custReg']" 
+                            [queryParams]="{allowEdit: false}"
+                            class="btn btn-link">New User Signup!</a>                 
                         </div>
                         <div class="col-sm-5">
                             <button type="button" class="btn btn-primary" (click)="onLoginFormSubmitted()" [disabled]="loginFormsControl.invalid">Log in</button>

@@ -8,8 +8,12 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
 const appRoutes: Routes = [
 { path: '', component: LoginComponent },
 { path: 'login', component: LoginComponent },
-{ path: 'userDetail', component: UserdetailComponent },
-{ path: 'userDetail/:id', component: UserdetailComponent}    
+{ path: 'userDetail', component: UserdetailComponent, 
+    children : [
+        { path: ':id', component: CustomerRegistrationComponent,},        
+        { path: ':id/loan', component: LoanComponent,},        
+    ] },
+//{ path: 'userDetail/:id', component: UserdetailComponent}    
 ]
 
 @NgModule(

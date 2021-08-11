@@ -4,6 +4,11 @@ import { UserConstants } from '../Constants/User.Contants';
 import { User } from '../Model/User.Model';
 import * as moment from 'moment';
 import { MinimimDateValidator } from '../Validators/CustomValidators'
+import { UserService } from '../Service/UserService.Service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LoanAccountDetails } from '../Model/LoanAccountDetails.Model';
+import { EducationLoanAccountDetails } from '../Model/EducationLoanAccountDetails.Model';
+import { NonEducationLoanAccountDetails } from '../Model/NonEducationLoanAccountDetails.Model';
 
 @Component({
   selector: 'app-loan',
@@ -13,39 +18,41 @@ import { MinimimDateValidator } from '../Validators/CustomValidators'
 export class LoanComponent implements OnInit {
 
   IsLoanRegistration : boolean = true;
+  accNumber: string;
+  IsFormGroupEditable: boolean = true;
+
   loanFormControl : FormGroup;
   educationLoanFormControl: FormGroup;
   personalLoanFormControl: FormGroup;
   housingLoanFormControl: FormGroup;
 
   accHolderNameControl : FormControl;
-  loanTypeControl : FormControl;
-  loanAmountControl: FormControl;
-  loanApplyDateControl: FormControl;
-  loanIssueDateControl: FormControl;
-  rateOfInterestControl: FormControl;
-  durationofLoanControl: FormControl;
+  loanType : FormControl;
+  loanAmount: FormControl;
+  loanApplyDate: FormControl;
+  loanIssueDate: FormControl;
+  rateofInterest: FormControl;
+  duration: FormControl;
 
-  courseFeeControl : FormControl;
-  courseNameControl : FormControl;
-  fatherNameControl : FormControl;
-  fatherOccupationControl : FormControl;
-  fatherTotalExpControl : FormControl;
-  fatherCurrentExpControl: FormControl;
-  rationCardNoControl : FormControl;
-  annualIncomeControl : FormControl;
+  courseFee : FormControl;
+  course : FormControl;
+  fatherName : FormControl;
+  fatherOccupation : FormControl;
+  fatherTotalExperience : FormControl;
+  fatherCurrentExperience: FormControl;
+  rationCardNo : FormControl;
+  annualIncome : FormControl;
 
-  annualIncomeSelfControl : FormControl;
-  compnayNameControl :  FormControl;
-  designationControl :  FormControl;
-  totalExpSelfControl : FormControl;
-  currentExpSelfControl :  FormControl;
+  companyName :  FormControl;
+  designation :  FormControl;
+  totalExperience : FormControl;
+  currentExperience :  FormControl;
 
-  homeLoanAnnualIncomeSelfControl : FormControl;
-  homeLoanCompnayNameControl :  FormControl;
-  homeLoanDesignationControl :  FormControl;
-  homeLoanTotalExpSelfControl :  FormControl;
-  homeLoanCurrentExpSelfControl :  FormControl;
+  homeLoanannualIncome : FormControl;
+  homeLoancompanyName :  FormControl;
+  homeLoandesignation :  FormControl;
+  homeLoantotalExperience :  FormControl;
+  homeLoancurrentExperience :  FormControl;
 
 
   loanTypes : any[];
@@ -54,7 +61,8 @@ export class LoanComponent implements OnInit {
   minDate =  moment(new Date()).format('YYYY-MM-DD');
   
 
-  constructor() {
+  constructor(private userService : UserService, private route: ActivatedRoute,
+    private router: Router) {
     
     this.userContantsModel = new UserConstants();
     this.loanTypes = this.userContantsModel.LoanTypes;
@@ -62,127 +70,127 @@ export class LoanComponent implements OnInit {
     
 
     this.accHolderNameControl = new FormControl({value : '', disabled: true}, [Validators.required]),
-    this.loanTypeControl = new FormControl('', [Validators.required]);
-    this.loanAmountControl = new FormControl('', [Validators.required]);
-    this.loanApplyDateControl  = new FormControl('', [Validators.required, MinimimDateValidator(new Date())]);
-    this.loanIssueDateControl = new FormControl({value : '', disabled: true}, [Validators.required]);
-    this.rateOfInterestControl = new FormControl({value : '', disabled: true}, [Validators.required]);
-    this.durationofLoanControl = new FormControl('', [Validators.required]);
+    this.loanType = new FormControl('', [Validators.required]);
+    this.loanAmount = new FormControl('', [Validators.required]);
+    this.loanApplyDate  = new FormControl('', [Validators.required, MinimimDateValidator(new Date())]);
+    this.loanIssueDate = new FormControl({value : '', disabled: true}, [Validators.required]);
+    this.rateofInterest = new FormControl({value : '', disabled: true}, [Validators.required]);
+    this.duration = new FormControl('', [Validators.required]);
 
-    this.courseFeeControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.courseFee = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.courseNameControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.course = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.fatherNameControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.fatherName = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.fatherOccupationControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.fatherOccupation = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.fatherTotalExpControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.fatherTotalExperience = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.fatherCurrentExpControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this.fatherCurrentExperience = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this. rationCardNoControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
+    this. rationCardNo = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
-    this.annualIncomeControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Education'),
-      Validators.required
-    )]);
-
-    this.annualIncomeSelfControl = new FormControl('',  [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Personal'),
-      Validators.required
-    )]);
-    this.compnayNameControl = new FormControl('',[this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Personal'),
-      Validators.required
-    )]);
-    this.designationControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Personal'),
-      Validators.required
-    )]);
-    this.totalExpSelfControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Personal'),
-      Validators.required
-    )]);
-    this.currentExpSelfControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Personal'),
+    this.annualIncome = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Education'),
       Validators.required
     )]);
 
-    this.homeLoanAnnualIncomeSelfControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Housing'),
+    this.annualIncome = new FormControl('',  [this.conditionalValidator(
+      (() => this.loanType.value === 'Personal'),
       Validators.required
     )]);
-    this.homeLoanCompnayNameControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Housing'),
+    this.companyName = new FormControl('',[this.conditionalValidator(
+      (() => this.loanType.value === 'Personal'),
       Validators.required
     )]);
-    this.homeLoanDesignationControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Housing'),
+    this.designation = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Personal'),
       Validators.required
     )]);
-    this.homeLoanTotalExpSelfControl = new FormControl('',[this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Housing'),
+    this.totalExperience = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Personal'),
       Validators.required
     )]);
-    this.homeLoanCurrentExpSelfControl = new FormControl('', [this.conditionalValidator(
-      (() => this.loanTypeControl.value === 'Housing'),
+    this.currentExperience = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Personal'),
+      Validators.required
+    )]);
+
+    this.homeLoanannualIncome = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Housing'),
+      Validators.required
+    )]);
+    this.homeLoancompanyName = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Housing'),
+      Validators.required
+    )]);
+    this.homeLoandesignation = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Housing'),
+      Validators.required
+    )]);
+    this.homeLoantotalExperience = new FormControl('',[this.conditionalValidator(
+      (() => this.loanType.value === 'Housing'),
+      Validators.required
+    )]);
+    this.homeLoancurrentExperience = new FormControl('', [this.conditionalValidator(
+      (() => this.loanType.value === 'Housing'),
       Validators.required
     )]);
     
     this.loanFormControl = new FormGroup(
     {
       accHolderNameControl : this.accHolderNameControl,
-      loanTypeControl : this.loanTypeControl,
-      loanAmountControl:  this.loanAmountControl,
-      loanApplyDateControl: this.loanApplyDateControl,
-      loanIssueDateControl: this.loanIssueDateControl,
-      rateOfInterestControl: this.rateOfInterestControl,
-      durationofLoanControl: this.durationofLoanControl,
+      loanType : this.loanType,
+      loanAmount:  this.loanAmount,
+      loanApplyDate: this.loanApplyDate,
+      loanIssueDate: this.loanIssueDate,
+      rateofInterest: this.rateofInterest,
+      duration: this.duration,
     });
 
     this.educationLoanFormControl = new FormGroup(
     {
-        courseFeeControl : this.courseFeeControl,
-        courseNameControl : this.courseNameControl,
-        fatherNameControl : this.fatherNameControl,
-        fatherOccupationControl : this.fatherOccupationControl,
-        fatherTotalExpControl : this.fatherTotalExpControl,
-        fatherCurrentExpControl : this.fatherCurrentExpControl,
-        rationCardNoControl : this.rationCardNoControl,
-        annualIncomeControl : this.annualIncomeControl,
+        courseFee : this.courseFee,
+        course : this.course,
+        fatherName : this.fatherName,
+        fatherOccupation : this.fatherOccupation,
+        fatherTotalExperience : this.fatherTotalExperience,
+        fatherCurrentExperience : this.fatherCurrentExperience,
+        rationCardNo : this.rationCardNo,
+        annualIncome : this.annualIncome,
     });
 
     this.personalLoanFormControl = new FormGroup(
     {
-      annualIncomeSelfControl : this.annualIncomeSelfControl, 
-      compnayNameControl : this.compnayNameControl,
-      designationControl : this.designationControl,
-      totalExpSelfControl : this.totalExpSelfControl,
-      currentExpSelfControl : this.currentExpSelfControl,
+      annualIncome : this.annualIncome, 
+      companyName : this.companyName,
+      designation : this.designation,
+      totalExperience : this.totalExperience,
+      currentExperience : this.currentExperience,
     })
 
     this.housingLoanFormControl = new FormGroup(
     {
-        homeLoanAnnualIncomeSelfControl : this.homeLoanAnnualIncomeSelfControl,
-        homeLoanCompnayNameControl : this.homeLoanCompnayNameControl,
-        homeLoanDesignationControl : this.homeLoanDesignationControl,
-        homeLoanTotalExpSelfControl : this.homeLoanTotalExpSelfControl,
-        homeLoanCurrentExpSelfControl : this.homeLoanCurrentExpSelfControl,
+      annualIncome : this.annualIncome, 
+      companyName : this.companyName,
+      designation : this.designation,
+      totalExperience : this.totalExperience,
+      currentExperience : this.currentExperience,
     })
     
 
@@ -190,14 +198,90 @@ export class LoanComponent implements OnInit {
 
   ngOnInit(): void {  
     
-    let loanTypeValue = this.loanTypeControl.value;
+    let loanTypeValue = this.loanType.value;
     if(loanTypeValue !== '')
     {
       this.setValidatorForFormControls(loanTypeValue);
       this.onLoanTypeChange(loanTypeValue);
     }
 
+    this.route.queryParams
+        .subscribe(
+          (queryParams: Params) => {
+            this.accNumber = queryParams['accId'];
+            console.log("Editable Status : ", this.accNumber); 
+            console.log("Form Group Editable Status1 : ", this.IsFormGroupEditable);    
+            this.userService.GetUserDetailByCustId(this.accNumber)
+            .subscribe((userData) =>
+            {
+            
+              this.SetFormValues(userData);     
+                     
+            })                         
+          }
+        );
+
   }
+
+  SetFormValues(user: User)
+    {         
+        if(user.bankAccountDetail.loanDetail == null )
+        {
+          console.log("Loan Data: ", user.name);
+          this.loanFormControl.get('accHolderNameControl').patchValue(user.name);          
+        }
+        else
+        {
+          let loanDetailInfo = user.bankAccountDetail.loanDetail;
+          let loanForm = {
+            accHolderNameControl : user.name,
+            loanType: loanDetailInfo.loanType,
+            loanAmount: loanDetailInfo.loanAmount,
+            loanApplyDate: loanDetailInfo.loanApplyDate,
+            loanIssueDate: loanDetailInfo.loanIssueDate,
+            rateofInterest: loanDetailInfo.rateofInterest,
+            duration: loanDetailInfo.duration,
+          };
+          let educationLoanDetailInfo = loanDetailInfo.educationLoanAccountDetail;
+          let educationLoanForm = {
+            courseFee: educationLoanDetailInfo.courseFee,
+            course: educationLoanDetailInfo.course,
+            fatherName: educationLoanDetailInfo.fatherName,
+            fatherOccupation: educationLoanDetailInfo.fatherOccupation,
+            fatherTotalExperience: educationLoanDetailInfo.fatherTotalExperience,
+            fatherCurrentExperience: educationLoanDetailInfo.fatherCurrentExperience,
+            rationCardNo: educationLoanDetailInfo.rationCardNo,
+            annualIncome: educationLoanDetailInfo.annualIncome,
+
+          }
+          let otherLoanDetailInfo = loanDetailInfo.otherLoanAccountDetail;
+          let OtherLoanForm = {          
+            annualIncome: otherLoanDetailInfo.annualIncome,
+            companyName: otherLoanDetailInfo.companyName,
+            designation: otherLoanDetailInfo.designation,
+            totalExperience: otherLoanDetailInfo.totalExperience,
+            currentExperience: otherLoanDetailInfo.currentExperience
+          }
+        
+          this.loanFormControl.setValue(loanForm);
+          if(loanDetailInfo.loanType != '')
+          {
+            if(loanDetailInfo.loanType === 'Education')
+            {
+              this.educationLoanFormControl.setValue(educationLoanForm);
+            }
+            else if(loanDetailInfo.loanType === 'Personal')
+            {
+              this.personalLoanFormControl.setValue(OtherLoanForm);
+            }
+            else
+            {
+              this.housingLoanFormControl.setValue(OtherLoanForm);
+            }        
+          }
+      }
+  }
+
    
   onLoanTypeChange(loanTypeSelected : string)
   {
@@ -216,13 +300,13 @@ export class LoanComponent implements OnInit {
     { 
       roi = this.userContantsModel.HousingLoanROI;
     }
-    this.loanFormControl.get('rateOfInterestControl').patchValue(roi);    
+    this.loanFormControl.get('rateofInterest').patchValue(roi);    
     this.setValidatorForFormControls(loanTypeSelected);
   }
 
   onLoanApplyDateChange(selectedDate: Date)
   {
-    this.loanFormControl.get('loanIssueDateControl').patchValue(moment(selectedDate).format("DD-MM-YYYY"));    
+    this.loanFormControl.get('loanIssueDate').patchValue(moment(selectedDate).format("DD-MM-YYYY"));    
   }
 
    conditionalValidator(condition: (() => boolean), validator: ValidatorFn): ValidatorFn {

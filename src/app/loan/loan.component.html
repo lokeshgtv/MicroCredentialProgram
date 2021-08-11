@@ -2,6 +2,7 @@
     <h5 *ngIf="IsLoanRegistration">Apply Loan</h5>
     <h5 *ngIf="!IsLoanRegistration">Loan Details</h5>
     <form [formGroup]="loanFormControl" class="form-horizontal formStyle">    
+        <fieldset [disabled] = '!IsFormGroupEditable'>
         <div class="row col-xs-12">
             <div class="col-sm-2">
                 <label>Account Holder Name</label>                 
@@ -15,14 +16,14 @@
                 <label>Loan Type</label>                 
             </div>
             <div class="col-sm-3">
-                <select #selectedLoanType id="loanType" formControlName="loanTypeControl" class="dropdown col-sm-12"
+                <select #selectedLoanType id="loanType" formControlName="loanType" class="dropdown col-sm-12"
                  (change)="onLoanTypeChange(selectedLoanType.value)">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option  class="dropdown-item" *ngFor="let loanType of loanTypes; let i = index" [value]="loanType">{{loanType}}</Option>
                     </select>
             </div>    
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="loanTypeControl.touched && loanTypeControl.invalid">Please select Loan Type!</span>                
+                <span class="text-danger" *ngIf="loanType.touched && loanType.invalid">Please select Loan Type!</span>                
             </div>         
         </div>     
         <div class="row col-xs-12">
@@ -30,10 +31,10 @@
                 <label>Loan Amount</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="number" id="loanAmount" formControlName="loanAmountControl" class="form-control"/>                
+                <input type="number" id="loanAmt" formControlName="loanAmount" class="form-control"/>                
             </div>            
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="loanAmountControl.touched && loanAmountControl.hasError('required')">Please Enter LoanAmount!</span>                
+                <span class="text-danger" *ngIf="loanAmount.touched && loanAmount.hasError('required')">Please Enter LoanAmount!</span>                
             </div>           
         </div>            
         <div class="row col-xs-12">
@@ -41,14 +42,14 @@
                 <label>Loan Apply Date</label>                 
             </div>
             <div class="col-sm-3">
-                <input #loanApplyDate type="date" id="loanApplydate" formControlName="loanApplyDateControl" class="form-control" [min]="minDate"
+                <input #loanApplyDate type="date" id="loanAppdate" formControlName="loanApplyDate" class="form-control" [min]="minDate"
                 (change)="onLoanApplyDateChange(loanApplyDate.value)">
             </div>     
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="loanApplyDateControl.touched && loanApplyDateControl.hasError('required')">Please Enter Date!</span>                
+                <span class="text-danger" *ngIf="loanApplyDate.touched && loanApplyDate.hasError('required')">Please Enter Date!</span>                
             </div>       
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="loanApplyDateControl.touched && loanApplyDateControl.hasError('Invalid Date')">Please Enter Only Date From Today!</span>                
+                <span class="text-danger" *ngIf="loanApplyDate.touched && loanApplyDate.hasError('Invalid Date')">Please Enter Only Date From Today!</span>                
             </div>     
         </div>     
         <div class="row col-xs-12">
@@ -56,7 +57,7 @@
                 <label>Loan Issue Date</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="loanIssueDate" formControlName="loanIssueDateControl" class="form-control"/>
+                <input type="text" id="loanIssDate" formControlName="loanIssueDate" class="form-control"/>
             </div>                      
         </div>     
         <div class="row col-xs-12">
@@ -64,7 +65,7 @@
                 <label>ROI</label>                 
             </div>
             <div class="col-sm-3">
-                <input type="text" id="roi" formControlName="rateOfInterestControl" class="form-control"/>
+                <input type="text" id="roi" formControlName="rateofInterest" class="form-control"/>
             </div>                      
         </div>     
         
@@ -73,25 +74,25 @@
                 <label>Duration Of Loan</label>                 
             </div>
             <div class="col-sm-3">
-                <select id="duration" formControlName="durationofLoanControl" class="dropdown col-sm-12">
+                <select id="loanduration" formControlName="duration" class="dropdown col-sm-12">
                         <Option class="dropdown-item" value="" disabled></Option>
                         <Option class="dropdown-item"  *ngFor="let loanDur of loanDuration; let i = index" [value]="loanDur">{{loanDur}}</Option>
                     </select>
             </div>    
             <div class="row col-xs-12">
-                <span class="text-danger" *ngIf="durationofLoanControl.touched && durationofLoanControl.invalid">Please select Loan Duration!</span>                
+                <span class="text-danger" *ngIf="duration.touched && duration.invalid">Please select Loan Duration!</span>                
             </div>         
         </div>   
-        <form [formGroup]="educationLoanFormControl" class="form-horizontal formStyle" *ngIf="loanTypeControl.value === 'Education'">    
+        <form [formGroup]="educationLoanFormControl" class="form-horizontal formStyle" *ngIf="loanType.value === 'Education'">    
             <div class="row col-xs-12">
                 <div class="col-sm-2">
                     <label>Course Fees</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="courseFee" formControlName="courseFeeControl" class="form-control"/>                
+                    <input type="text" id="courseFees" formControlName="courseFee" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="courseFeeControl.touched && courseFeeControl.invalid">Please Enter Course Fees!</span>                
+                    <span class="text-danger" *ngIf="courseFee.touched && courseFee.invalid">Please Enter Course Fees!</span>                
                 </div>             
             </div>
     
@@ -100,10 +101,10 @@
                     <label>Course Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="courseName" formControlName="courseNameControl" class="form-control"/>                
+                    <input type="text" id="courseName" formControlName="course" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="courseNameControl.touched && courseNameControl.invalid">Please Enter Course Name!</span>                
+                    <span class="text-danger" *ngIf="course.touched && course.invalid">Please Enter Course Name!</span>                
                 </div>             
             </div>
     
@@ -112,10 +113,10 @@
                     <label>Father Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="fatherName" formControlName="fatherNameControl" class="form-control"/>                
+                    <input type="text" id="fatherNam" formControlName="fatherName" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="fatherNameControl.touched && fatherNameControl.invalid">Please Enter Father Name!</span>                
+                    <span class="text-danger" *ngIf="fatherName.touched && fatherName.invalid">Please Enter Father Name!</span>                
                 </div>             
             </div>
     
@@ -124,10 +125,10 @@
                     <label>Father Occupation</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="fatherOccupation" formControlName="fatherOccupationControl" class="form-control"/>                
+                    <input type="text" id="fatherOccupationCtl" formControlName="fatherOccupation" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="fatherOccupationControl.touched && fatherOccupationControl.invalid">Please Enter Father Occupation!</span>                
+                    <span class="text-danger" *ngIf="fatherOccupation.touched && fatherOccupation.invalid">Please Enter Father Occupation!</span>                
                 </div>             
             </div>
     
@@ -136,10 +137,10 @@
                     <label>Father Total Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="fatherTotalExp" formControlName="fatherTotalExpControl" class="form-control"/>                
+                    <input type="text" id="fatherTotalExpCtl" formControlName="fatherTotalExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="fatherTotalExpControl.touched && fatherTotalExpControl.invalid">Please Enter Father Total Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="fatherTotalExperience.touched && fatherTotalExperience.invalid">Please Enter Father Total Years of Experience!</span>                
                 </div>             
             </div>
     
@@ -148,10 +149,10 @@
                     <label>Father Current Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="fatherCurrentExp" formControlName="fatherCurrentExpControl" class="form-control"/>                
+                    <input type="text" id="fatherCurrentExpCtl" formControlName="fatherCurrentExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="fatherCurrentExpControl.touched && fatherCurrentExpControl.invalid">Please Enter Father Current Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="fatherCurrentExperience.touched && fatherCurrentExperience.invalid">Please Enter Father Current Years of Experience!</span>                
                 </div>             
             </div>
     
@@ -160,10 +161,10 @@
                     <label>Ration Card Number</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="rationCard" formControlName="rationCardNoControl" class="form-control"/>                
+                    <input type="text" id="rationCard" formControlName="rationCardNo" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="rationCardNoControl.touched && rationCardNoControl.invalid">Please Enter Ration Card Number!</span>                
+                    <span class="text-danger" *ngIf="rationCardNo.touched && rationCardNo.invalid">Please Enter Ration Card Number!</span>                
                 </div>             
             </div>
     
@@ -172,24 +173,24 @@
                     <label>Annual Income</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="number" id="annualInc" formControlName="annualIncomeControl" class="form-control"/>                
+                    <input type="number" id="annualInc" formControlName="annualIncome" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="annualIncomeControl.touched && annualIncomeControl.invalid">Please Enter Annual Income!</span>                
+                    <span class="text-danger" *ngIf="annualIncome.touched && annualIncome.invalid">Please Enter Annual Income!</span>                
                 </div>             
             </div>       
         </form>        
     
-        <form [formGroup]="personalLoanFormControl" class="form-horizontal formStyle" *ngIf="loanTypeControl.value === 'Personal'">    
+        <form [formGroup]="personalLoanFormControl" class="form-horizontal formStyle" *ngIf="loanType.value === 'Personal'">    
             <div class="row col-xs-12">
                 <div class="col-sm-2">
                     <label>Annual Income</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="number" id="annualIncome" formControlName="annualIncomeSelfControl" class="form-control"/>                
+                    <input type="number" id="annualIncomeCtl" formControlName="annualIncome" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="annualIncomeSelfControl.touched && annualIncomeSelfControl.invalid">Please Enter Annual Income!</span>                
+                    <span class="text-danger" *ngIf="annualIncome.touched && annualIncome.invalid">Please Enter Annual Income!</span>                
                 </div>             
             </div>
     
@@ -198,10 +199,10 @@
                     <label>Company Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="companyName" formControlName="compnayNameControl" class="form-control"/>                
+                    <input type="text" id="companyNameCtl" formControlName="companyName" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="compnayNameControl.touched && compnayNameControl.invalid">Please Enter Company Name!</span>                
+                    <span class="text-danger" *ngIf="companyName.touched && companyName.invalid">Please Enter Company Name!</span>                
                 </div>             
             </div>
     
@@ -210,10 +211,10 @@
                     <label>Designation</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="designation" formControlName="designationControl" class="form-control"/>                
+                    <input type="text" id="designationCtl" formControlName="designation" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="designationControl.touched && designationControl.invalid">Please Enter Designation!</span>                
+                    <span class="text-danger" *ngIf="designation.touched && designation.invalid">Please Enter Designation!</span>                
                 </div>             
             </div>       
     
@@ -222,10 +223,10 @@
                     <label>Total Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="totalExpSelf" formControlName="totalExpSelfControl" class="form-control"/>                
+                    <input type="text" id="totalExpSelf" formControlName="totalExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="totalExpSelfControl.touched && totalExpSelfControl.invalid">Please Enter Total Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="totalExperience.touched && totalExperience.invalid">Please Enter Total Years of Experience!</span>                
                 </div>             
             </div>
     
@@ -234,24 +235,24 @@
                     <label>Current Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="currentExpSelf" formControlName="currentExpSelfControl" class="form-control"/>                
+                    <input type="text" id="currentExpSelf" formControlName="currentExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="currentExpSelfControl.touched && currentExpSelfControl.invalid">Please Enter Current Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="currentExperience.touched && currentExperience.invalid">Please Enter Current Years of Experience!</span>                
                 </div>             
             </div>
         </form>
     
-        <form [formGroup]="housingLoanFormControl" class="form-horizontal formStyle" *ngIf="loanTypeControl.value === 'Housing'">    
+        <form [formGroup]="housingLoanFormControl" class="form-horizontal formStyle" *ngIf="loanType.value === 'Housing'">    
             <div class="row col-xs-12">
                 <div class="col-sm-2">
                     <label>Annual Income</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="number" id="annualIncomehome" formControlName="homeLoanAnnualIncomeSelfControl" class="form-control"/>                
+                    <input type="number" id="annualIncomehome" formControlName="annualIncome" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="homeLoanAnnualIncomeSelfControl.touched && homeLoanAnnualIncomeSelfControl.invalid">Please Enter Annual Income!</span>                
+                    <span class="text-danger" *ngIf="annualIncome.touched && annualIncome.invalid">Please Enter Annual Income!</span>                
                 </div>             
             </div>
     
@@ -260,10 +261,10 @@
                     <label>Company Name</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="hoeLoanCompnayNameC" formControlName="homeLoanCompnayNameControl" class="form-control"/>                
+                    <input type="text" id="hoeLoanCompnayNameC" formControlName="companyName" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="homeLoanCompnayNameControl.touched && homeLoanCompnayNameControl.invalid">Please Enter Company Name!</span>                
+                    <span class="text-danger" *ngIf="companyName.touched && companyName.invalid">Please Enter Company Name!</span>                
                 </div>             
             </div>
     
@@ -272,10 +273,10 @@
                     <label>Designation</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="homeLoanDesignation" formControlName="homeLoanDesignationControl" class="form-control"/>                
+                    <input type="text" id="designation" formControlName="designation" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="homeLoanDesignationControl.touched && homeLoanDesignationControl.invalid">Please Enter Designation!</span>                
+                    <span class="text-danger" *ngIf="designation.touched && designation.invalid">Please Enter Designation!</span>                
                 </div>             
             </div>       
     
@@ -284,10 +285,10 @@
                     <label>Total Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="homeLoanTotalExpSelf" formControlName="homeLoanTotalExpSelfControl" class="form-control"/>                
+                    <input type="text" id="homeLoanTotalExpSelf" formControlName="totalExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="homeLoanTotalExpSelfControl.touched && homeLoanTotalExpSelfControl.invalid">Please Enter Total Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="totalExperience.touched && totalExperience.invalid">Please Enter Total Years of Experience!</span>                
                 </div>             
             </div>
     
@@ -296,17 +297,19 @@
                     <label>Current Experience</label>                 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" id="homeLoanCurrentExpSelf" formControlName="homeLoanCurrentExpSelfControl" class="form-control"/>                
+                    <input type="text" id="homeLoanCurrentExpSelf" formControlName="currentExperience" class="form-control"/>                
                 </div>   
                 <div class="row col-xs-12">
-                    <span class="text-danger" *ngIf="homeLoanCurrentExpSelfControl.touched && homeLoanCurrentExpSelfControl.invalid">Please Enter Current Years of Experience!</span>                
+                    <span class="text-danger" *ngIf="currentExperience.touched && currentExperience.invalid">Please Enter Current Years of Experience!</span>                
                 </div>             
-            </div>       
+            </div>
+                 
         </form>
         <div class="row col-sm-1">
             <button type="submit" (click)="onLoanDetailSubmitted()" class="btn btn-primary" [disabled]='loanFormControl.invalid || educationLoanFormControl.invalid
                 || personalLoanFormControl.invalid || housingLoanFormControl.invalid'>Submit</button>
-        </div>  
+        </div>
+    </fieldset>    
     </form>
 </div>
     
